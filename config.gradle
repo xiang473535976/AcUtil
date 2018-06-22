@@ -1,0 +1,97 @@
+ext {
+    android = [
+            compileSdkVersion: 27,
+//            buildToolsVersion: "28.0.0-rc1",
+            buildToolsVersion: "27.0.3",
+            minSdkVersion    : 16,
+            targetSdkVersion : 27,
+            versionCode      : 100,
+            versionName      : "1.0.0"   //versionCode 和versionName  一样  至少三位数  线上版本
+    ]
+    version = [
+            supportSdk                   : "27.1.1",
+            retrofit                     : "2.4.0",
+            rxlifecycle                  : "2.2.1",
+            leakcanary                   : "1.5.4",
+            utilcode                     : "1.17.0", //自动下载最新的库
+            ucrop                        : "2.2.0",
+            rxjava2                      : "2.1.14",
+            rxkotlin                     : "2.2.0",
+            rxandroid2                   : "2.0.2",
+            okhttp_interceptor           : "3.10.0",
+            SmartRefreshLayout           : "1.1.0-alpha-7",
+            baseRecyclerViewAdapterHelper: "2.9.40",
+            circularAnim                 : "0.3.7",
+            autolayout                   : "1.4.5",
+            glide                        : "4.7.1",
+            statusbarutil                : "1.5.1",
+            rxpermissions2               : "0.9.5@aar",
+            eventbus                     : "3.1.1",
+            agentweb                     : "4.0.2",
+            multidex                     : "1.0.1",
+            matisse                      : "0.5.0-beta9",
+            Luban                        : "1.1.7",
+            CookieJar                    : "v1.0.1",
+            roundedimageview             : "2.3.0",
+            anko                         : "0.10.5",
+            xedittext                    : "2.1.1@aar",
+    ]
+    dependencies = [
+            //support
+            "appcompat_v7"                 : "com.android.support:appcompat-v7:${version["supportSdk"]}",
+            "design"                       : "com.android.support:design:${version["supportSdk"]}",
+            "cardview_v7"                  : "com.android.support:cardview-v7:${version["supportSdk"]}",
+            "recyclerview_v7"              : "com.android.support:recyclerview-v7:${version["supportSdk"]}",
+            "multidex"                     : "com.android.support:multidex:${version["multidex"]}",
+
+            //network
+            "retrofit"                     : "com.squareup.retrofit2:retrofit:${version["retrofit"]}",
+            "retrofit-converter-gson"      : "com.squareup.retrofit2:converter-gson:${version["retrofit"]}",
+            "retrofit-adapter-rxjava2"     : "com.squareup.retrofit2:adapter-rxjava2:${version["retrofit"]}",
+            //打印网络日志的
+            "logging_interceptor"          : "com.squareup.okhttp3:logging-interceptor:${version["okhttp_interceptor"]}",
+            "CookieJar"                    : "com.github.franmontiel:PersistentCookieJar:${version["CookieJar"]}",
+
+            //view
+            "autolayout"                   : "com.zhy:autolayout:${version["autolayout"]}",
+            "SmartRefreshLayout"           : "com.scwang.smartrefresh:SmartRefreshLayout:${version["SmartRefreshLayout"]}",
+            "SmartRefreshHeader"           : "com.scwang.smartrefresh:SmartRefreshHeader:${version["SmartRefreshLayout"]}",
+            "circularAnim"                 : "com.github.XunMengWinter:CircularAnim:${version["circularAnim"]}",
+            "BaseRecyclerViewAdapterHelper": "com.github.CymChad:BaseRecyclerViewAdapterHelper:${version["baseRecyclerViewAdapterHelper"]}",
+            "glide"                        : "com.github.bumptech.glide:glide:${version["glide"]}",
+            "glide_compiler"               : "com.github.bumptech.glide:compiler:${version["glide"]}",
+            "glide_okhttp3"                : "com.github.bumptech.glide:okhttp3-integration:${version["glide"]}",
+            "statusbarutil"                : "com.jaeger.statusbarutil:library:${version["statusbarutil"]}",
+            "roundedimageview"             : "com.makeramen:roundedimageview:${version["roundedimageview"]}",
+            "xedittext"                    : "com.xw.repo:xedittext:${version["xedittext"]}",
+
+            //rx2
+            "rxandroid2"                   : "io.reactivex.rxjava2:rxandroid:${version["rxandroid2"]}",
+            "rxjava2"                      : "io.reactivex.rxjava2:rxjava:${version["rxjava2"]}",
+            "rxkotlin"                     : "io.reactivex.rxjava2:rxkotlin:${version["rxkotlin"]}",
+            "rxlifecycle2"                 : "com.trello.rxlifecycle2:rxlifecycle:${version["rxlifecycle"]}",
+            "rxlifecycle2_components"      : "com.trello.rxlifecycle2:rxlifecycle-components:${version["rxlifecycle"]}",
+            "rxlifecycle2_kotlin"          : "com.trello.rxlifecycle2:rxlifecycle-kotlin:${version["rxlifecycle"]}",
+            "rxlifecycle2_kotlin_lifecycle": "com.trello.rxlifecycle2:rxlifecycle-android-lifecycle-kotlin:${version["rxlifecycle"]}",
+
+
+            "rxpermissions2"               : "com.tbruyelle.rxpermissions2:rxpermissions:${version["rxpermissions2"]}",
+            //tools
+            "utilcode"                     : "com.blankj:utilcode:${version["utilcode"]}",
+            "ucrop"                        : "com.yalantis:ucrop:${version["ucrop"]}",
+            "eventbus"                     : "org.greenrobot:eventbus:${version["eventbus"]}",
+            "agentweb"                     : "com.just.agentweb:agentweb:${version["agentweb"]}",    //浏览器
+            "matisse"                      : "com.zhihu.android:matisse:${version["matisse"]}",    //图片选择
+            "Luban"                        : "top.zibin:Luban:${version["Luban"]}",    //图片压缩
+            "anko"                         : "org.jetbrains.anko:anko-commons:${version["anko"]}",    //anko
+
+            //test
+            "junit"                        : "junit:junit:4.12",
+            "androidJUnitRunner"           : "android.support.test.runner.AndroidJUnitRunner",
+            "runner"                       : "com.android.support.test:runner:0.5",
+            "canary_debug"                 : "com.squareup.leakcanary:leakcanary-android:${version["leakcanary"]}",
+            "canary_release"               : "com.squareup.leakcanary:leakcanary-android-no-op:${version["leakcanary"]}",
+    ]
+
+
+}
