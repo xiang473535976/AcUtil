@@ -34,7 +34,7 @@ ext {
             CookieJar                    : "v1.0.1",
             roundedimageview             : "2.3.0",
             anko                         : "0.10.5",
-            xedittext                    : "2.1.1@aar",
+            xedittext                    : "2.1.2@aar",
     ]
     dependencies = [
             //support
