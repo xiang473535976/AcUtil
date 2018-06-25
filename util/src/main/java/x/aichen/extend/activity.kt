@@ -56,7 +56,7 @@ fun Activity.setCustomDensity(application: Application, designWidth: Int) {
 
     }
 
-//屏幕宽 的像素除以360 获得Density的值    亲测8.0无效  暂时没法用哈 
+//屏幕宽 的像素除以360 获得Density的值
 //    val targetDensity = appDisplayMetrics.widthPixels / 360
     val targetDensity = appDisplayMetrics.widthPixels / designWidth
     val targetDensityDpi = targetDensity * 160
