@@ -11,19 +11,11 @@ android {
     defaultConfig {
         minSdkVersion cfg["minSdkVersion"]
         targetSdkVersion cfg["targetSdkVersion"]
-        versionCode cfg["versionCode"]
-        versionName cfg["versionName"]
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "boolean", "LOG_DEBUG", "false"  // 显示Log
-        }
-        debug {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "boolean", "LOG_DEBUG", "true"  // 显示Log
         }
     }
 }
@@ -31,43 +23,92 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile librarys["cardview_v7"]
+    compile librarys["design"]
+    compile librarys["appcompat_v7"]
+
     compile librarys["utilcode"]
-    compile librarys["ucrop"]
+    compile(librarys["ucrop"]) {
+        exclude module: 'appcompat-v7'
+        exclude module: 'okhttp'
+    }
     //retrofit2
-    compile librarys["retrofit"]
-    compile librarys["retrofit-adapter-rxjava2"]
-    compile librarys["retrofit-converter-gson"]
-    compile librarys["logging_interceptor"]
+    compile(librarys["retrofit"]) {
+        exclude module: 'okhttp'
+        exclude module: 'okio'
+    }
+    compile(librarys["retrofit-adapter-rxjava2"]) {
+        exclude module: 'rxjava'
+        exclude module: 'okhttp'
+        exclude module: 'retrofit'
+        exclude module: 'okio'
+    }
+    compile(librarys["retrofit-converter-gson"]) {
+        exclude module: 'okhttp'
+        exclude module: 'okio'
+        exclude module: 'retrofit'
+    }
+    compile(librarys["logging_interceptor"]) {
+        exclude module: 'okhttp'
+    }
     //rxjava
     compile librarys["rxjava2"]
-    compile librarys["rxandroid2"]
-    compile librarys["rxlifecycle2"]
-    compile librarys["rxlifecycle2_components"]
-    compile librarys["rxlifecycle2_kotlin"]
-    compile librarys["rxlifecycle2_kotlin_lifecycle"]
-    compile librarys["rxpermissions2"]
+    compile(librarys["rxandroid2"]) {
+        exclude module: 'rxjava'
+    }
+    compile(librarys["rxlifecycle2"]) {
+        exclude module: 'rxjava'
+    }
+    compile(librarys["rxlifecycle2_components"]) {
+        exclude module: 'rxjava'
+        exclude module: 'appcompat-v7'
+    }
+    compile(librarys["rxlifecycle2_kotlin"]) {
+        exclude module: 'rxjava'
+    }
+    compile(librarys["rxlifecycle2_kotlin_lifecycle"]) {
+        exclude module: 'rxjava'
+    }
+    compile(librarys["rxpermissions2"]) {
+        exclude module: 'rxjava'
+        exclude module: 'support-annotations'
+    }
     compile librarys["SmartRefreshLayout"]
 //    compile librarys["SmartRefreshHeader"]
     compile librarys["BaseRecyclerViewAdapterHelper"]
     compile librarys["circularAnim"]
-    compile librarys["autolayout"]
-    compile librarys["glide"]
+    compile(librarys["autolayout"]) {
+        exclude module: 'appcompat-v7'
+    }
+    compile(librarys["glide"]) {
+        exclude module: 'support-v4'
+        exclude module: 'appcompat-v7'
+    }
     compile(librarys["glide_okhttp3"]) {
         exclude group: 'glide-parent'
+        exclude module: 'glide'
+        exclude module: 'okhttp'
+        exclude module: 'support-annotations'
     }
     kapt rootProject.ext.dependencies["glide_compiler"]
-    compile rootProject.ext.dependencies["statusbarutil"]
-    compile rootProject.ext.dependencies["eventbus"]
+    compile(librarys["statusbarutil"]) {
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-design'
+    }
+    compile librarys["eventbus"]
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    //内存泄漏检测
-    debugCompile rootProject.ext.dependencies["canary_debug"]
-    releaseCompile rootProject.ext.dependencies["canary_release"]
-    compile rootProject.ext.dependencies["agentweb"]
-    compile rootProject.ext.dependencies["matisse"]
-    compile rootProject.ext.dependencies["Luban"]
-    compile rootProject.ext.dependencies["design"]
-    compile rootProject.ext.dependencies["xedittext"]
-    compile 'com.tencent.sonic:sdk:3.0.0'
+    compile librarys["agentweb"]
+    compile(librarys["matisse"]) {
+        exclude module: 'support-v4'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-annotations'
+    }
+    compile librarys["Luban"]
+
+    compile librarys["xedittext"]
+    compile librarys["swipebacklayout"]
+    compile(librarys["sonic"]) {
+        exclude module: 'support-annotations'
+    }
 //    implementation "com.android.support:exifinterface:27.1.1"
 }
 repositories {
@@ -80,7 +121,7 @@ publish {
 //    repoName = 'AcUtil'//远程仓库名字,不指明，默认是上传到maven
     groupId = 'x.aichen'         //compile引用时的第1部分groupId，一般为包名
     artifactId = 'util'     //compile引用时的第2部分项目名，这个需要与我们之前创建的package的Name一样，要不会上传失败
-    publishVersion = '1.0.0'    //compile引用时的第3部分版本号
+    publishVersion = '1.0.0_alpha3'    //compile引用时的第3部分版本号
     desc = 'This is a library '  //描述  随便写
     website = siteUrl  //项目的网页，可以写源码的GitHub地址
 }

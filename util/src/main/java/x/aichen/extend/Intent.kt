@@ -14,6 +14,7 @@ import java.io.Serializable
 
 /**
  * 波纹形打开页面
+ *  bug   和 BGASwipeBackHelper滑动返回有冲突
 
  * @param cls
  * *

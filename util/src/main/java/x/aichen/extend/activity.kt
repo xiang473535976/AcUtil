@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.ComponentCallbacks
 import android.content.res.Configuration
 import android.view.View
+import com.blankj.utilcode.util.LogUtils
 
 /**
  * Contract->Model->Presenter->Activity->Module->Component
@@ -69,7 +70,6 @@ fun Activity.setCustomDensity(application: Application, designWidth: Int) {
     activityDisplayMetrics.density = targetDensity.toFloat()
     activityDisplayMetrics.scaledDensity = targetScaledDensity
     activityDisplayMetrics.densityDpi = targetDensityDpi
-
 }
 
 

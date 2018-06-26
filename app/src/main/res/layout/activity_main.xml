@@ -13,12 +13,13 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/toSecondActivity"
             android:layout_width="match_parent"
             android:gravity="center"
             android:layout_height="50dp"
             android:background="#51c332"
             android:layout_marginTop="1dp"
-            android:text="我是测试文字"
+            android:text="toSecondActivity"
             android:textSize="15sp" />
 
         <TextView
