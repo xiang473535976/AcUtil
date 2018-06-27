@@ -3,14 +3,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.novoda.bintray-release'
 def librarys = rootProject.ext.dependencies
-def cfg = rootProject.ext.android
 android {
-    compileSdkVersion cfg["compileSdkVersion"]
-    buildToolsVersion cfg["buildToolsVersion"]
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
 
     defaultConfig {
-        minSdkVersion cfg["minSdkVersion"]
-        targetSdkVersion cfg["targetSdkVersion"]
+        minSdkVersion 15
+        targetSdkVersion 27
     }
     buildTypes {
         release {
@@ -89,6 +88,8 @@ dependencies {
         exclude module: 'okhttp'
         exclude module: 'support-annotations'
     }
+    compile(librarys["okhttp3"]) {
+    }
     kapt rootProject.ext.dependencies["glide_compiler"]
     compile(librarys["statusbarutil"]) {
         exclude module: 'appcompat-v7'
@@ -101,6 +102,7 @@ dependencies {
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
         exclude module: 'support-annotations'
+        exclude module: 'recyclerview-v7'
     }
     compile librarys["Luban"]
 
