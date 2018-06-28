@@ -39,7 +39,7 @@ fun <V : View> Activity.fd(_id: Int): V {
  */
 private var sNonCompatDensity = 0f
 private var sNonCompatScaleDensity = 0f
-fun Activity.setCustomDensity(application: Application, designWidth: Int) {
+fun Activity.setCustomDensity(designWidth: Int) {
     val appDisplayMetrics = application.resources.displayMetrics;
     if (sNonCompatDensity == 0f) {
         sNonCompatDensity = appDisplayMetrics.density;
@@ -65,8 +65,8 @@ fun Activity.setCustomDensity(application: Application, designWidth: Int) {
     appDisplayMetrics.density = targetDensity.toFloat()
     appDisplayMetrics.scaledDensity = targetScaledDensity
     appDisplayMetrics.densityDpi = targetDensityDpi
-
-    val activityDisplayMetrics = application.resources.displayMetrics;
+//    val activityDisplayMetrics = application.resources.displayMetrics;   8.0上的  修改这个    不生效  需要修改act的 才行
+    val activityDisplayMetrics = resources.displayMetrics
     activityDisplayMetrics.density = targetDensity.toFloat()
     activityDisplayMetrics.scaledDensity = targetScaledDensity
     activityDisplayMetrics.densityDpi = targetDensityDpi
