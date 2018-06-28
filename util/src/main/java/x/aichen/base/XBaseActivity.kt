@@ -38,20 +38,21 @@ abstract class XBaseActivity : RxAppCompatActivity(), BGASwipeBackHelper.Delegat
     var supportSwipeBack = false   //滑动返回
     var mSwipeBackHelper: BGASwipeBackHelper? = null
     override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
-        var view: View? = null
-        if (name == LAYOUT_FRAMELAYOUT) {
-            view = AutoFrameLayout(context, attrs)
-        }
+        if (useAutolayoutToFitScreen) {
+            var view: View? = null
+            if (name == LAYOUT_FRAMELAYOUT) {
+                view = AutoFrameLayout(context, attrs)
+            }
 
-        if (name == LAYOUT_LINEARLAYOUT) {
-            view = AutoLinearLayout(context, attrs)
-        }
+            if (name == LAYOUT_LINEARLAYOUT) {
+                view = AutoLinearLayout(context, attrs)
+            }
 
-        if (name == LAYOUT_RELATIVELAYOUT) {
-            view = AutoRelativeLayout(context, attrs)
+            if (name == LAYOUT_RELATIVELAYOUT) {
+                view = AutoRelativeLayout(context, attrs)
+            }
+            if (view != null) return view
         }
-        if (view != null) return view
-
         return super.onCreateView(name, context, attrs)
     }
 
