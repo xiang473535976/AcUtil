@@ -20,7 +20,7 @@ ext {
             eventbus                     : "3.1.1",
             agentweb                     : "4.0.2",
             multidex                     : "1.0.1",
-            matisse                      : "0.5.0-beta9",
+            matisse                      : "0.5.1",
             Luban                        : "1.1.7",
             CookieJar                    : "v1.0.1",
             roundedimageview             : "2.3.0",
@@ -28,6 +28,7 @@ ext {
             xedittext                    : "2.1.3@aar",
             swipebacklayout              : "1.1.9@aar",
             sonic                        : "3.0.0",
+            popu                         : "1.1.1",
     ]
     dependencies = [
             //support
@@ -80,6 +81,7 @@ ext {
             "anko"                         : "org.jetbrains.anko:anko-commons:${version["anko"]}",    //anko
             "swipebacklayout"              : "cn.bingoogolapple:bga-swipebacklayout:${version["swipebacklayout"]}",    //swipebacklayout
             "sonic"                        : "com.tencent.sonic:sdk:${version["sonic"]}",    //sonic
+            "popu"                         : "com.github.zyyoona7:EasyPopup:${version["popu"]}",    //popu
 
             //test
             "junit"                        : "junit:junit:4.12",

@@ -45,7 +45,7 @@ abstract class XBaseDialog protected constructor(styly: Int) : Dialog(ActivityUt
         context.startActivity(intent)
     }
 
-    protected fun init() {
+    private fun init() {
         lp = window.attributes
         lp.alpha = 0.9f
         lp.width = ScreenUtils.getScreenWidth().toInt()

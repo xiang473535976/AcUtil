@@ -1,15 +1,9 @@
-/**
- * 2014-3-3 下午3:55:51 Created By niexiaoqiang
- */
-
 package x.aichen.util
 
 import com.blankj.utilcode.util.LogUtils
 import com.google.gson.Gson
 import com.google.gson.JsonParser
-import com.google.gson.reflect.TypeToken
-
-import java.util.ArrayList
+import java.util.*
 
 /**
  * String转JSON
@@ -35,7 +29,7 @@ object JsonUtil {
      * *
      * @return
      */
-    fun <T> StringToObj(str: String, beanObj: Class<T>): T {
+    fun <T> stringToObj(str: String, beanObj: Class<T>): T {
         var json: T? = null
         try {
             json = getGson().fromJson(str, beanObj)
@@ -47,27 +41,6 @@ object JsonUtil {
 
 
     /**
-     * 从字符串转位对应的对象
-
-     * @param <T>
-     * *
-     * @param str
-     * *
-     * @param beanObj
-     * *
-     * @return
-    </T> */
-    fun <T> StringToList(str: String, beanObj: Class<T>): List<T> {
-        val type = object : TypeToken<List<T>>() {
-
-        }.type
-        val fromJson2 = gson!!.fromJson<Any>(str, type)
-        val list = fromJson2 as List<T>
-        return list
-    }
-
-    /**
-     * 第一个报错的时候  用第二个   优先用第二个吧
 
      * @param jsonString
      * *
@@ -77,7 +50,7 @@ object JsonUtil {
      * *
      * @return
     </T> */
-    fun <T> Object2List(jsonString: String, cls: Class<T>): ArrayList<T> {
+    fun <T> objectToList(jsonString: String, cls: Class<T>): ArrayList<T> {
         val list = ArrayList<T>()
         try {
             val gson = Gson()
@@ -100,7 +73,7 @@ object JsonUtil {
      * @return
      */
 
-    fun ObjToString(obj: Any): String {
+    fun objToString(obj: Any): String {
         return getGson().toJson(obj)
     }
 

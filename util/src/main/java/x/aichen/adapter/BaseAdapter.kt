@@ -7,7 +7,6 @@ import com.zhy.autolayout.attr.AutoAttr
 import com.zhy.autolayout.utils.AutoUtils
 import x.aichen.extend.longToast
 import x.aichen.extend.toast
-import kotlin.collections.ArrayList
 
 /**
  * Contract->Model->Presenter->Activity->Module->Component
@@ -34,11 +33,6 @@ abstract class BaseAdapter<T> : BaseQuickAdapter<T, BaseViewHolder> {
         AutoUtils.autoSize(viewHolder.itemView, AutoAttr.BASE_HEIGHT) //屏幕适配
         return viewHolder
     }
-//    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BaseViewHolder {
-//        val viewHolder = super.onCreateViewHolder(parent, viewType)
-//        AutoUtils.autoSize(viewHolder.itemView, AutoAttr.BASE_HEIGHT) //屏幕适配
-//        return viewHolder
-//    }
 
     /**
      * 清空所有

@@ -63,10 +63,6 @@ abstract class XBasePopu : PopupWindow() {
             val y = location[1]
             showAtLocation(view, Gravity.NO_GRAVITY, 0, y + view.height)
         } else {
-//            val visibleFrame = Rect()
-//            view!!.getGlobalVisibleRect(visibleFrame)
-//            val height = view.resources.displayMetrics.heightPixels - visibleFrame.bottom
-//            setHeight(height)
             super.showAsDropDown(view)
         }
         backgroundAlpha(0.9f)

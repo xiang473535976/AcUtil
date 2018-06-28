@@ -14,7 +14,6 @@ import com.zhy.autolayout.utils.AutoUtils
 import java.util.ArrayList
 
 /**
- * Created by Oubowu on 2016/8/3 20:40.
  * 继承BaseMultiItemQuickAdapter的一个适配器基类
  */
 abstract class BaseMultiItemAdapter<T : MultiItemEntity> : BaseMultiItemQuickAdapter<T, BaseViewHolder> {
