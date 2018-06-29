@@ -7,7 +7,7 @@ import x.aichen.extend.setCustomDensity
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setCustomDensity(this.application, 260)
+        setCustomDensity(260)
         setContentView(R.layout.activity_main)
     }
 }
