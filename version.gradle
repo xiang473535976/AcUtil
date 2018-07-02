@@ -4,9 +4,9 @@ ext {
             retrofit                     : "2.4.0",
             rxlifecycle                  : "2.2.1",
             leakcanary                   : "1.5.4",
-            utilcode                     : "1.17.1", //自动下载最新的库
+            utilcode                     : "1.17.2", //自动下载最新的库
             ucrop                        : "2.2.0",
-            rxjava2                      : "2.1.14",
+            rxjava2                      : "2.1.16",
             rxkotlin                     : "2.2.0",
             rxandroid2                   : "2.0.2",
             okhttp_interceptor           : "3.10.0",
