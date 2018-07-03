@@ -1,13 +1,22 @@
 package example.aichen.ac
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import x.aichen.extend.setCustomDensity
+import x.aichen.base.XBaseActivity
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setCustomDensity(260)
-        setContentView(R.layout.activity_main)
+
+class MainActivity : XBaseActivity() {
+    override val layooutid: Int
+        get() = R.layout.activity_main
+
+    override fun initView(savedInstanceState: Bundle?) {
     }
+
+    override fun initListener() {
+    }
+
+    override fun initDate() {
+    }
+
+
 }
+

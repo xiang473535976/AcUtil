@@ -4,35 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f3f3f3"
     android:orientation="vertical"
     tools:context=".MainActivity">
-
-
-
-        <TextView
-            android:id="@+id/toSecondActivity"
-            android:layout_width="match_parent"
-            android:gravity="center"
-            android:layout_height="50dp"
-            android:background="#51c332"
-            android:layout_marginTop="1dp"
-            android:text="toSecondActivity"
-            android:textSize="15sp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
