@@ -97,7 +97,7 @@ dependencies {
     }
     compile librarys["eventbus"]
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    compile librarys["agentweb"]
+//    compile librarys["agentweb"]
     compile(librarys["matisse"]) {
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
@@ -108,9 +108,9 @@ dependencies {
 
     compile librarys["xedittext"]
     compile librarys["swipebacklayout"]
-    compile(librarys["sonic"]) {
-        exclude module: 'support-annotations'
-    }
+//    compile(librarys["sonic"]) {
+//        exclude module: 'support-annotations'
+//    }
 //    implementation "com.android.support:exifinterface:27.1.1"
 }
 repositories {
@@ -123,7 +123,7 @@ publish {
 //    repoName = 'AcUtil'//远程仓库名字,不指明，默认是上传到maven
     groupId = 'x.aichen'         //compile引用时的第1部分groupId，一般为包名
     artifactId = 'util'     //compile引用时的第2部分项目名，这个需要与我们之前创建的package的Name一样，要不会上传失败
-    publishVersion = '1.0.0_alpha5'    //compile引用时的第3部分版本号
+    publishVersion = '1.0.0_alpha6'    //compile引用时的第3部分版本号
     desc = 'This is a library '  //描述  随便写
     website = siteUrl  //项目的网页，可以写源码的GitHub地址
 }

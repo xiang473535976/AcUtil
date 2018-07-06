@@ -8,5 +8,5 @@ fun Context.longToast(msg: Any?) {
 }
 
 fun Context.toast(msg: Any?) {
-    msg?.let { ToastUtils.showLong(msg.toString()) }
+    msg?.let { ToastUtils.showShort(msg.toString()) }
 }
