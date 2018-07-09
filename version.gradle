@@ -16,7 +16,7 @@ ext {
             autolayout                   : "1.4.5",
             glide                        : "4.7.1",
             statusbarutil                : "1.5.1",
-            rxpermissions2               : "0.9.5@aar",
+            rxpermissions2               : "0.10.1@aar",
             eventbus                     : "3.1.1",
             agentweb                     : "4.0.2",
             multidex                     : "1.0.1",
@@ -70,7 +70,7 @@ ext {
             "rxlifecycle2_kotlin_lifecycle": "com.trello.rxlifecycle2:rxlifecycle-android-lifecycle-kotlin:${version["rxlifecycle"]}",
 
 
-            "rxpermissions2"               : "com.tbruyelle.rxpermissions2:rxpermissions:${version["rxpermissions2"]}",
+            "rxpermissions2"               : "com.github.tbruyelle:rxpermissions:${version["rxpermissions2"]}",
             //tools
             "utilcode"                     : "com.blankj:utilcode:${version["utilcode"]}",
             "ucrop"                        : "com.yalantis:ucrop:${version["ucrop"]}",
