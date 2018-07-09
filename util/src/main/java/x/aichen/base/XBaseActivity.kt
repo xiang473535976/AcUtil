@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
-import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper
 import com.blankj.utilcode.util.KeyboardUtils
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
@@ -14,7 +13,6 @@ import com.zhy.autolayout.AutoRelativeLayout
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import x.aichen.R
 
 
 /**
@@ -26,7 +24,7 @@ import x.aichen.R
  * 说明：
  */
 
-abstract class XBaseActivity : RxAppCompatActivity(), BGASwipeBackHelper.Delegate {
+abstract class XBaseActivity : RxAppCompatActivity() {
     protected abstract val layooutid: Int
     protected abstract fun initView(savedInstanceState: Bundle?)
     protected abstract fun initListener()
@@ -35,8 +33,6 @@ abstract class XBaseActivity : RxAppCompatActivity(), BGASwipeBackHelper.Delegat
     var addToSmartRefreshLayout: Boolean = false
     var parent_smartrefreshLayout: SmartRefreshLayout? = null
     var useAutolayoutToFitScreen = false  //用px     autolayout进行屏幕适配
-    var supportSwipeBack = false   //滑动返回
-    var mSwipeBackHelper: BGASwipeBackHelper? = null
     override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
         if (useAutolayoutToFitScreen) {
             var view: View? = null
@@ -70,30 +66,7 @@ abstract class XBaseActivity : RxAppCompatActivity(), BGASwipeBackHelper.Delegat
     }
 
     open fun initBeforeSetContentView() {
-        if (supportSwipeBack) {
 
-            // 「必须在 Application 的 onCreate 方法中执行 BGASwipeBackHelper.init 来初始化滑动返回」
-            // 下面几项可以不配置，这里只是为了讲述接口用法。
-            mSwipeBackHelper = BGASwipeBackHelper(this, this).apply {
-                // 设置滑动返回是否可用。默认值为 true
-                setSwipeBackEnable(true)
-                // 设置是否仅仅跟踪左侧边缘的滑动返回。默认值为 true
-                setIsOnlyTrackingLeftEdge(true)
-                // 设置是否是微信滑动返回样式。默认值为 true
-                setIsWeChatStyle(true)
-                // 设置阴影资源 id。默认值为 R.drawable.bga_sbl_shadow
-                setShadowResId(R.drawable.bga_sbl_shadow)
-                // 设置是否显示滑动返回的阴影效果。默认值为 true
-                setIsNeedShowShadow(true)
-                // 设置阴影区域的透明度是否根据滑动的距离渐变。默认值为 true
-                setIsShadowAlphaGradient(true)
-                // 设置触发释放后自动滑动返回的阈值，默认值为 0.3f
-                setSwipeBackThreshold(0.3f)
-                // 设置底部导航条是否悬浮在内容上，默认值为 false
-                setIsNavigationBarOverlap(false)
-            }
-
-        }
     }
 
     open fun initAfterViewPrepared() {
@@ -121,41 +94,6 @@ abstract class XBaseActivity : RxAppCompatActivity(), BGASwipeBackHelper.Delegat
         private val LAYOUT_LINEARLAYOUT = "LinearLayout"
         private val LAYOUT_FRAMELAYOUT = "FrameLayout"
         private val LAYOUT_RELATIVELAYOUT = "RelativeLayout"
-    }
-
-    //暂时屏蔽侧滑
-    override fun isSupportSwipeBack(): Boolean {
-        return supportSwipeBack
-    }
-
-    /**
-     * 正在滑动返回
-     *
-     * @param slideOffset 从 0 到 1
-     */
-    override fun onSwipeBackLayoutSlide(slideOffset: Float) {}
-
-    /**
-     * 没达到滑动返回的阈值，取消滑动返回动作，回到默认状态
-     */
-    override fun onSwipeBackLayoutCancel() {}
-
-    /**
-     * 滑动返回执行完毕，销毁当前 Activity
-     */
-    override fun onSwipeBackLayoutExecuted() {
-        mSwipeBackHelper?.swipeBackward()
-    }
-
-    override fun onBackPressed() {
-        // 正在滑动返回的时候取消返回按钮事件
-        mSwipeBackHelper?.apply {
-            if (isSliding) {
-                return
-            }
-            backward()
-        }
-
     }
 
     /**
