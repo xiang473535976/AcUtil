@@ -12,6 +12,7 @@ import android.app.Activity.RESULT_CANCELED
 import com.yalantis.ucrop.UCrop
 import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
+import com.zhihu.matisse.SelectionCreator
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -25,11 +26,16 @@ import kotlin.collections.ArrayList
 //@SuppressLint("StaticFieldLeak")
 /**
  * 使用教程
- * 1.在manifests中添加下面代码
+ * 1.在manifests中添加下面代码  权限和页面配置
  * 2.混淆规则中 添加 luban   crop  Matisse对应混淆规则
- * 3  在使用的act中回调 onActivityResult
+ * 3.在使用的act中回调 onActivityResult
  * 4.Enjoy your  self
  */
+
+//<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+//<uses-permission android:name="android.permission.CAMERA" />
+
+
 //<activity
 //android:name="com.yalantis.ucrop.UCropActivity"
 //android:screenOrientation="portrait"
@@ -47,34 +53,34 @@ import kotlin.collections.ArrayList
 object ImagePick {
     private var REQUEST_CODE_SELECT: Int = 110
     private var pickBuilder: PickBuilder? = null
-    private var onPickResultListener: onPickResultListener? = null
+    private lateinit var pickListener: (paths: List<String>) -> Unit
     /**
      * 剪切多图
      */
     private var nowCropUri: Uri? = null  //当前正在剪切的图片的地址    主要是剪切考虑到剪切取消的情况
     private var cropedsList: ArrayList<Uri>? = null  //已经剪切了的图片的地址
     private var mSelectedUri: List<Uri>? = null    //选取的图片的地址
+    private lateinit var matisseSelectionCreator: SelectionCreator  //图片选取的对象
     /**
      * activity  fragment     两个中至少有一个不为空
      * pickBuilder     配置构造器  （里面已经包含了一些常用基本信息）
      * onSelectListener    回调监听器
      *   初始化  选图配置
      */
-    fun builder(activity: Activity?, fragment: Fragment?, pickBuilder: PickBuilder, onPickResultListener: onPickResultListener) {
-        ImagePick.pickBuilder = pickBuilder
-        ImagePick.onPickResultListener = onPickResultListener
-        with(pickBuilder) {
+    fun builder(activity: Activity?, fragment: Fragment?, pickbuilder: PickBuilder, block: (paths: List<String>) -> Unit): ImagePick {
+        pickBuilder = pickbuilder
+        pickListener = block
+        with(pickbuilder) {
             if (getmMimeType().contains(MimeType.GIF) || getmMimeType().containsAll(MimeType.ofVideo())) { //这些类型  视频   gif   不支持压缩和裁剪
                 isCompress = false
                 isCrop = false
             }
-//            if (isCrop)
-//                setmMaxSelectable(1)  //剪切图片 就只选取一张
-            var matisse = if (null != activity)
+            val matisse = if (null != activity)
                 Matisse.from(activity)
             else
                 Matisse.from(fragment)
-            matisse.choose(getmMimeType())
+            //缓存实体 方便后面再次调用选取图片
+            matisseSelectionCreator = matisse.choose(getmMimeType())
                     .apply {
                         countable(ismCountable())
                         maxSelectable(getmMaxSelectable())
@@ -84,11 +90,20 @@ object ImagePick {
                         captureStrategy(getmCaptureStrategy())
                         restrictOrientation(getmOrientation())
                         thumbnailScale(getmThumbnailScale())
-                        imageEngine(getmImageEngine()).forResult(REQUEST_CODE_SELECT)
+                        imageEngine(getmImageEngine())
                     }
 
-        }
 
+        }
+        return this
+
+    }
+
+    /**
+     * 开始选取图片
+     */
+    fun start() {
+        matisseSelectionCreator.forResult(REQUEST_CODE_SELECT)
     }
 
     /**
@@ -173,9 +188,8 @@ object ImagePick {
             LogUtils.e(it)
         }
         //回调
-        onPickResultListener!!.onPicked(resultPaths)
+        pickListener(resultPaths)
         //施放资源
-        onPickResultListener = null
         mSelectedUri = null
         cropedsList = null
         nowCropUri = null
