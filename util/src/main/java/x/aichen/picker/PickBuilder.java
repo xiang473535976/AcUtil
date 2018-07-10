@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Contract->Model->Presenter->Activity->Module->Component
  * author 艾晨
  * Created at 2017/8/4 22:06
  * Update at 2017/8/4 22:06

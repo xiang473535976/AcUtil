@@ -3,8 +3,12 @@ package x.aichen.extend
 import android.app.Activity
 import android.app.Application
 import android.content.ComponentCallbacks
+import android.content.pm.ActivityInfo
 import android.content.res.Configuration
+import android.graphics.Bitmap
+import android.util.DisplayMetrics
 import android.view.View
+import android.view.WindowManager
 import com.blankj.utilcode.util.LogUtils
 
 /**
@@ -70,6 +74,65 @@ fun Activity.setCustomDensity(designWidth: Int) {
     activityDisplayMetrics.density = targetDensity.toFloat()
     activityDisplayMetrics.scaledDensity = targetScaledDensity
     activityDisplayMetrics.densityDpi = targetDensityDpi
+}
+
+/**
+ * 屏幕截图
+ */
+fun Activity.screenShot(activity: Activity, isDeleteStatusBar: Boolean = true): Bitmap {
+    val decorView = activity.window.decorView
+    decorView.isDrawingCacheEnabled = true
+    decorView.buildDrawingCache()
+    val bmp = decorView.drawingCache
+    val dm = DisplayMetrics()
+    activity.windowManager.defaultDisplay.getMetrics(dm)
+    var ret: Bitmap? = null
+    if (isDeleteStatusBar) {
+        val resources = activity.resources
+        val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
+        val statusBarHeight = resources.getDimensionPixelSize(resourceId)
+        ret = Bitmap.createBitmap(bmp, 0, statusBarHeight, dm.widthPixels, dm.heightPixels - statusBarHeight)
+    } else {
+        ret = Bitmap.createBitmap(bmp, 0, 0, dm.widthPixels, dm.heightPixels)
+    }
+    decorView.destroyDrawingCache()
+    return ret!!
+}
+
+/**
+ * 是否竖屏
+ */
+fun Activity.isPortrait(): Boolean {
+    return resources.configuration.orientation === Configuration.ORIENTATION_PORTRAIT
+}
+
+/**
+ * 是否横屏
+ */
+fun Activity.isLandscape(): Boolean {
+    return resources.configuration.orientation === Configuration.ORIENTATION_LANDSCAPE
+}
+
+
+/**
+ * 设置竖屏
+ */
+fun Activity.setPortrait() {
+    this.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+}
+
+/**
+ * 设置横屏
+ */
+fun Activity.setLandscape() {
+    this.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+}
+
+/**
+ * 设置全屏
+ */
+fun Activity.setFullScreen() {
+    this.window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 }
 
 

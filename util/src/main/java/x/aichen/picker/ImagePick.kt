@@ -16,7 +16,8 @@ import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import top.zibin.luban.Luban
-import x.aichen.util.Util
+import x.aichen.extend.createCacheFile
+import x.aichen.extend.toFileRealPath
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -141,7 +142,7 @@ object ImagePick {
     @SuppressLint("CheckResult")
     private fun toCompressByLuBan(context: Context?) {
         if (pickBuilder!!.isCrop) mSelectedUri = cropedsList   //如果剪切了   就处理剪切后的集合
-        val paths = arrayListOf<String>().apply { mSelectedUri?.forEach { add(Util.getRealFilePath(context!!, it)!!) } }
+        val paths = arrayListOf<String>().apply { mSelectedUri?.forEach { add(it.toFileRealPath(context!!)!!) } }
         if (pickBuilder!!.isCompress) {
             Flowable.just(paths)
                     .observeOn(Schedulers.io())
@@ -188,7 +189,7 @@ object ImagePick {
         var context = activity ?: fragment!!.context
         val destUri = Uri.Builder()
                 .scheme("file")
-                .appendPath(Util.CreateCacheFile(context!!, "crop")!!.toString())
+                .appendPath(context?.createCacheFile("crop")!!.toString())
                 .appendPath(String.format(Locale.CHINA, "%s.jpg", System.currentTimeMillis()))
                 .build()
         val bu = UCrop.of(nowCropUri!!, destUri)
