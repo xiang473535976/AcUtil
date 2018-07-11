@@ -1,10 +1,11 @@
 package x.aichen.extend
 
+import com.blankj.utilcode.util.LogUtils
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
-import x.aichen.util.RetryWithDelay
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -14,7 +15,7 @@ import io.reactivex.schedulers.Schedulers
  * Update people:
  * Version:1.0
  * 说明：rxjava的一些扩展
-*/
+ */
 
 
 /**
@@ -26,19 +27,28 @@ fun <T> Observable<T>.io_main(): Observable<T> = this.subscribeOn(Schedulers.io(
         .unsubscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
 
+/**
+ * 自动重试两次 10秒间隔
+ */
 fun <T> Observable<T>.io_main_retry(): Observable<T> = this.subscribeOn(Schedulers.io())
         .unsubscribeOn(Schedulers.io())
-        .retryWhen(RetryWithDelay(2, 20000))
+        .retryWithDelay(2, 10000)
         .observeOn(AndroidSchedulers.mainThread())
 
-fun <T> Observable<T>.retryNum(retryNum: Int): Observable<T> = this.retryWhen(RetryWithDelay(retryNum, 20000))
+/**
+ *重试次数
+ */
+fun <T> Observable<T>.retryNum(retryNum: Int): Observable<T> = this.retryWithDelay(retryNum, 10000)
 
 
 fun <T> Observable<T>.all_io(): Observable<T> = this.subscribeOn(Schedulers.io())
         .unsubscribeOn(Schedulers.io())
-        .retryWhen(RetryWithDelay(2, 20000))
+        .retryWithDelay(2, 10000)
         .observeOn(Schedulers.io())
 
+/**
+ * 绑定生命周期
+ */
 fun <T, E> Observable<T>.io_main_bindLife(provider: com.trello.rxlifecycle2.LifecycleProvider<E>): Observable<T> = this.subscribeOn(Schedulers.io())
         .unsubscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
@@ -48,4 +58,25 @@ fun <T> Observable<T>.io_main_bindLife(view: android.view.View): Observable<T> =
         .unsubscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .bindToLifecycle(view)
+
+/**
+ *maxRetries   重试次数
+ *retryDelayMillis   每次重试时间
+ */
+private var retryCount: Int = 0
+
+fun <T> Observable<T>.retryWithDelay(maxRetries: Int, retryDelayMillis: Long): Observable<T> =
+        retryWhen {
+            it.flatMap { throwable ->
+                if (++retryCount <= maxRetries) {
+                    LogUtils.e("get error, it will try after " + retryDelayMillis
+                            + " millisecond, retry count " + retryCount)
+                    Observable.timer(retryDelayMillis, TimeUnit.MILLISECONDS)
+                } else {
+                    Observable.error(throwable)
+                }
+            }
+
+        }
+
 
