@@ -14,5 +14,11 @@
         android:layout_height="wrap_content"
         android:text="选图" />
 
+    <Button
+        android:id="@+id/toNet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="网路请求" />
+
 
 </LinearLayout>

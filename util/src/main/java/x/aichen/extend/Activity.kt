@@ -3,13 +3,17 @@ package x.aichen.extend
 import android.app.Activity
 import android.app.Application
 import android.content.ComponentCallbacks
+import android.content.Context
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Bitmap
+import android.support.v7.app.AlertDialog
 import android.util.DisplayMetrics
+import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import com.blankj.utilcode.util.LogUtils
+import x.aichen.R
 
 /**
  * Contract->Model->Presenter->Activity->Module->Component
@@ -133,6 +137,17 @@ fun Activity.setLandscape() {
  */
 fun Activity.setFullScreen() {
     this.window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN or WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+}
+/**
+ * 加载进度条
+ */
+fun Context.showProgressDialog(): AlertDialog {
+    val builder = AlertDialog.Builder(this, R.style.ProgreeDialog)
+    val view = LayoutInflater.from(this).inflate(R.layout.dialog_progress, null)
+    builder.setView(view)
+    val dialog = builder.create()
+    dialog.setCanceledOnTouchOutside(false)
+    return dialog
 }
 
 

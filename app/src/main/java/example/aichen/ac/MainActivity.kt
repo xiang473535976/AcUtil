@@ -2,8 +2,10 @@ package example.aichen.ac
 
 import android.content.Intent
 import android.os.Bundle
+import com.blankj.utilcode.util.LogUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import x.aichen.base.XBaseActivity
+import x.aichen.extend.io_main_bindLife
 import x.aichen.picker.ImagePick
 import x.aichen.picker.PickBuilder
 
@@ -24,6 +26,19 @@ class MainActivity : XBaseActivity() {
         toCick.setOnClickListener {
             pick.start()
         }
+        toNet.setOnClickListener {
+            toHttp()
+        }
+    }
+
+    private fun toHttp() {
+        X.api.ulogin("13000000000", "123456")
+                .io_main_bindLife(this)
+                .subscribe({
+                    LogUtils.e(it)
+                }, {
+
+                })
     }
 
     override fun initDate() {

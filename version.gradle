@@ -4,7 +4,7 @@ ext {
             retrofit                     : "2.4.0",
             rxlifecycle                  : "2.2.1",
             leakcanary                   : "1.5.4",
-            utilcode                     : "1.17.2", //自动下载最新的库
+            utilcode                     : "+", //自动下载最新的库1.17.3
             ucrop                        : "2.2.0",
             rxjava2                      : "2.1.16",
             rxkotlin                     : "2.2.0",
@@ -16,7 +16,7 @@ ext {
             autolayout                   : "1.4.5",
             glide                        : "4.7.1",
             statusbarutil                : "1.5.1",
-            rxpermissions2               : "0.10.1@aar",
+            rxpermissions2               : "0.10.2@aar",
             eventbus                     : "3.1.1",
             agentweb                     : "4.0.2",
             multidex                     : "1.0.1",

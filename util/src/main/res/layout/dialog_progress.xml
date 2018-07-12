@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <!--<ImageView-->
+        <!--android:id="@+id/progressBar"-->
+        <!--android:layout_width="250px"-->
+        <!--android:layout_height="250px"-->
+        <!--android:src="@drawable/loading" />-->
+
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:paddingTop="15px"-->
+        <!--android:text="加载中……"-->
+        <!--android:textColor="@color/color_949494"-->
+        <!--android:textSize="@dimen/font_32px"-->
+        <!--android:visibility="gone" />-->
+    <com.mingle.widget.LoadingView
+        android:id="@+id/loadView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

@@ -107,6 +107,7 @@ dependencies {
     compile librarys["Luban"]
 
     compile librarys["xedittext"]
+    compile 'com.github.zzz40500:android-shapeLoadingView:1.0.3.2'
 //    compile librarys["swipebacklayout"]
 //    compile(librarys["sonic"]) {
 //        exclude module: 'support-annotations'
