@@ -27,13 +27,32 @@ public class HttpGlobalConfig {
     private File httpCacheDirectory;//Http缓存路径
     private int retryDelayMillis;//请求失败重试间隔时间
     private int retryCount;//请求失败重试次数
-    private Long CACHE_MAX_SIZE;  //缓存的大小
+    private Long CACHE_MAX_SIZE ;  //缓存的大小
     private boolean isHttpCache;//是否使用Http缓存
     private Cache httpCache;//Http缓存对象
 
-    public Cache getHttpCache() {
-        return httpCache;
+    /**
+     * 设置请求失败重试间隔时间
+     *
+     * @param retryDelayMillis
+     * @return
+     */
+    public HttpGlobalConfig retryDelayMillis(int retryDelayMillis) {
+        this.retryDelayMillis = retryDelayMillis;
+        return this;
     }
+
+    /**
+     * 设置请求失败重试次数
+     *
+     * @param retryCount
+     * @return
+     */
+    public HttpGlobalConfig retryCount(int retryCount) {
+        this.retryCount = retryCount;
+        return this;
+    }
+
 
     /**
      * 设置HTTP缓存
@@ -41,7 +60,7 @@ public class HttpGlobalConfig {
      * @param httpCache
      * @return
      */
-    public HttpGlobalConfig sethttpCache(Cache httpCache) {
+    public HttpGlobalConfig httpCache(Cache httpCache) {
         this.httpCache = httpCache;
         return this;
     }
@@ -56,22 +75,17 @@ public class HttpGlobalConfig {
      * @param isHttpCache
      * @return
      */
-    public HttpGlobalConfig setHttpCache(boolean isHttpCache) {
+    public HttpGlobalConfig UseHttpCache(boolean isHttpCache) {
         this.isHttpCache = isHttpCache;
         return this;
     }
 
-    public Long getCACHE_MAX_SIZE() {
+    public Long getCacheMaxSize() {
         return CACHE_MAX_SIZE;
     }
 
-    public HttpGlobalConfig setCACHE_MAX_SIZE(Long CACHE_MAX_SIZE) {
-        this.CACHE_MAX_SIZE = CACHE_MAX_SIZE;
-        return this;
-    }
-
-    public HttpGlobalConfig setConverterFactory(Converter.Factory converterFactory) {
-        this.converterFactory = converterFactory;
+    public HttpGlobalConfig CacheMaxSize(Long cache_max_size) {
+        this.CACHE_MAX_SIZE = cache_max_size;
         return this;
     }
 
@@ -143,33 +157,11 @@ public class HttpGlobalConfig {
      * @param httpCacheDirectory
      * @return
      */
-    public HttpGlobalConfig setHttpCacheDirectory(File httpCacheDirectory) {
+    public HttpGlobalConfig httpCacheDirectory(File httpCacheDirectory) {
         this.httpCacheDirectory = httpCacheDirectory;
         return this;
     }
 
-
-    /**
-     * 设置请求失败重试间隔时间
-     *
-     * @param retryDelayMillis
-     * @return
-     */
-    public HttpGlobalConfig retryDelayMillis(int retryDelayMillis) {
-        this.retryDelayMillis = retryDelayMillis;
-        return this;
-    }
-
-    /**
-     * 设置请求失败重试次数
-     *
-     * @param retryCount
-     * @return
-     */
-    public HttpGlobalConfig retryCount(int retryCount) {
-        this.retryCount = retryCount;
-        return this;
-    }
 
     /**
      * 设置代理
@@ -329,6 +321,10 @@ public class HttpGlobalConfig {
             retryDelayMillis = DefaultConfig.DEFAULT_RETRY_DELAY_MILLIS;
         }
         return retryDelayMillis;
+    }
+
+    public Cache getHttpCache() {
+        return httpCache;
     }
 
     public int getRetryCount() {

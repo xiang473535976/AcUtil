@@ -100,19 +100,20 @@ object RetrofitManager {
         okHttpBuilder.connectionPool(httpGlobalConfig.connectionPool)
         if (httpGlobalConfig.isHttpCache) {
             if (httpGlobalConfig.httpCacheDirectory == null) {
-                httpGlobalConfig.httpCacheDirectory = File(context!!.cacheDir, DefaultConfig.CACHE_HTTP_DIR)
+                httpGlobalConfig.httpCacheDirectory(File(context!!.cacheDir, DefaultConfig.CACHE_HTTP_DIR))
             }
-            if (httpGlobalConfig.cachE_MAX_SIZE == 0L) {
-                httpGlobalConfig.cachE_MAX_SIZE = DefaultConfig.CACHE_MAX_SIZE
+            if (httpGlobalConfig.cacheMaxSize == null) {
+                httpGlobalConfig.CacheMaxSize(DefaultConfig.CACHE_MAX_SIZE)
             }
+
             try {
                 if (httpGlobalConfig.httpCache == null) {
-                    httpGlobalConfig.sethttpCache(Cache(httpGlobalConfig.httpCacheDirectory, httpGlobalConfig.cachE_MAX_SIZE))
+                    httpGlobalConfig.httpCache(Cache(httpGlobalConfig.httpCacheDirectory, httpGlobalConfig.cacheMaxSize))
                 }
                 httpGlobalConfig.cacheOnline(httpGlobalConfig.httpCache)
                 httpGlobalConfig.cacheOffline(httpGlobalConfig.httpCache)
             } catch (e: Exception) {
-                LogUtils.e("Could not create http cache$e")
+                LogUtils.e("Could not create http cache $e")
             }
 
         }

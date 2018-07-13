@@ -10,5 +10,9 @@ class App : XApp() {
         super.onCreate()
         RetrofitManager.CONFIG().interceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .interceptor(ParmLogInterceptor())
+                .UseHttpCache(true)
+
+
+
     }
 }
