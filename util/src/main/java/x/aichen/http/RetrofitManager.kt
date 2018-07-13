@@ -3,6 +3,7 @@ package x.aichen.http
 import android.annotation.SuppressLint
 import android.content.Context
 import android.support.annotation.NonNull
+import com.blankj.utilcode.util.LogUtils
 import okhttp3.Cache
 import okhttp3.ConnectionPool
 import okhttp3.OkHttpClient
@@ -10,7 +11,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import x.aichen.http.config.HttpGlobalConfig
-import x.aichen.http.config.SimpleConfig
+import x.aichen.http.config.DefaultConfig
 import java.io.File
 import java.util.concurrent.TimeUnit
 
@@ -47,6 +48,9 @@ object RetrofitManager {
         return okHttpClient
     }
 
+    /**
+     * 进行各种个性化配置
+     */
     fun CONFIG(): HttpGlobalConfig {
         return httpGlobalConfig
     }
@@ -90,18 +94,31 @@ object RetrofitManager {
 
 
         if (httpGlobalConfig.connectionPool == null) {
-            httpGlobalConfig.connectionPool(ConnectionPool(SimpleConfig.DEFAULT_MAX_IDLE_CONNECTIONS,
-                    SimpleConfig.DEFAULT_KEEP_ALIVE_DURATION, TimeUnit.SECONDS))
+            httpGlobalConfig.connectionPool(ConnectionPool(DefaultConfig.DEFAULT_MAX_IDLE_CONNECTIONS,
+                    DefaultConfig.DEFAULT_KEEP_ALIVE_DURATION, TimeUnit.SECONDS))
         }
         okHttpBuilder.connectionPool(httpGlobalConfig.connectionPool)
+        if (httpGlobalConfig.isHttpCache) {
+            if (httpGlobalConfig.httpCacheDirectory == null) {
+                httpGlobalConfig.httpCacheDirectory = File(context!!.cacheDir, DefaultConfig.CACHE_HTTP_DIR)
+            }
+            if (httpGlobalConfig.cachE_MAX_SIZE == 0L) {
+                httpGlobalConfig.cachE_MAX_SIZE = DefaultConfig.CACHE_MAX_SIZE
+            }
+            try {
+                if (httpGlobalConfig.httpCache == null) {
+                    httpGlobalConfig.sethttpCache(Cache(httpGlobalConfig.httpCacheDirectory, httpGlobalConfig.cachE_MAX_SIZE))
+                }
+                httpGlobalConfig.cacheOnline(httpGlobalConfig.httpCache)
+                httpGlobalConfig.cacheOffline(httpGlobalConfig.httpCache)
+            } catch (e: Exception) {
+                LogUtils.e("Could not create http cache$e")
+            }
 
-        if (httpGlobalConfig.httpCacheDirectory == null) {
-            httpGlobalConfig.httpCacheDirectory = File(context!!.cacheDir, SimpleConfig.CACHE_HTTP_DIR)
         }
-        if (httpGlobalConfig.cachE_MAX_SIZE == 0L) {
-            httpGlobalConfig.cachE_MAX_SIZE = SimpleConfig.CACHE_MAX_SIZE
+        if (httpGlobalConfig.httpCache != null) {
+            okHttpBuilder.cache(httpGlobalConfig.httpCache)
         }
-        okHttpBuilder.cache(Cache(httpGlobalConfig.httpCacheDirectory, httpGlobalConfig.cachE_MAX_SIZE))
     }
 }
 

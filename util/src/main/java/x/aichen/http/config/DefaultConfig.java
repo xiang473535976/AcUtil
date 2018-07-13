@@ -5,7 +5,7 @@ package x.aichen.http.config;
  * @author: <a href="http://www.xiaoyaoyou1212.com">DAWI</a>
  * @date: 2016-12-19 15:23
  */
-public class SimpleConfig {
+public class DefaultConfig {
 
     public static final String CACHE_SP_NAME = "sp_cache";//默认SharedPreferences缓存文件名
     public static final String CACHE_DISK_DIR = "disk_cache";//默认磁盘缓存目录

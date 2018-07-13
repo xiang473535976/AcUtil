@@ -4,12 +4,15 @@ import java.io.File;
 import java.net.Proxy;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Cache;
 import okhttp3.Call.Factory;
 import okhttp3.ConnectionPool;
 import okhttp3.Interceptor;
 import retrofit2.CallAdapter;
 import retrofit2.Converter;
 import x.aichen.http.RetrofitManager;
+import x.aichen.http.interceptor.OfflineCacheInterceptor;
+import x.aichen.http.interceptor.OnlineCacheInterceptor;
 
 /**
  * @Description: 请求全局配置
@@ -25,6 +28,38 @@ public class HttpGlobalConfig {
     private int retryDelayMillis;//请求失败重试间隔时间
     private int retryCount;//请求失败重试次数
     private Long CACHE_MAX_SIZE;  //缓存的大小
+    private boolean isHttpCache;//是否使用Http缓存
+    private Cache httpCache;//Http缓存对象
+
+    public Cache getHttpCache() {
+        return httpCache;
+    }
+
+    /**
+     * 设置HTTP缓存
+     *
+     * @param httpCache
+     * @return
+     */
+    public HttpGlobalConfig sethttpCache(Cache httpCache) {
+        this.httpCache = httpCache;
+        return this;
+    }
+
+    public boolean isHttpCache() {
+        return isHttpCache;
+    }
+
+    /**
+     * 设置是否添加HTTP缓存
+     *
+     * @param isHttpCache
+     * @return
+     */
+    public HttpGlobalConfig setHttpCache(boolean isHttpCache) {
+        this.isHttpCache = isHttpCache;
+        return this;
+    }
 
     public Long getCACHE_MAX_SIZE() {
         return CACHE_MAX_SIZE;
@@ -188,7 +223,7 @@ public class HttpGlobalConfig {
         if (timeout > -1) {
             RetrofitManager.getOkHttpBuilder2().connectTimeout(timeout, unit);
         } else {
-            RetrofitManager.getOkHttpBuilder2().connectTimeout(SimpleConfig.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+            RetrofitManager.getOkHttpBuilder2().connectTimeout(DefaultConfig.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
         }
         return this;
     }
@@ -204,7 +239,7 @@ public class HttpGlobalConfig {
         if (timeout > -1) {
             RetrofitManager.getOkHttpBuilder2().writeTimeout(timeout, unit);
         } else {
-            RetrofitManager.getOkHttpBuilder2().writeTimeout(SimpleConfig.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+            RetrofitManager.getOkHttpBuilder2().writeTimeout(DefaultConfig.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
         }
         return this;
     }
@@ -220,7 +255,7 @@ public class HttpGlobalConfig {
         if (timeout > -1) {
             RetrofitManager.getOkHttpBuilder2().readTimeout(timeout, unit);
         } else {
-            RetrofitManager.getOkHttpBuilder2().readTimeout(SimpleConfig.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+            RetrofitManager.getOkHttpBuilder2().readTimeout(DefaultConfig.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
         }
         return this;
     }
@@ -247,6 +282,31 @@ public class HttpGlobalConfig {
         return this;
     }
 
+    /**
+     * 设置在线缓存，主要针对网路请求过程进行缓存
+     *
+     * @param httpCache
+     * @return
+     */
+    public HttpGlobalConfig cacheOnline(Cache httpCache) {
+        networkInterceptor(new OnlineCacheInterceptor());
+        this.httpCache = httpCache;
+        return this;
+    }
+
+    /**
+     * 设置离线缓存，主要针对网路请求过程进行缓存
+     *
+     * @param httpCache
+     * @return
+     */
+    public HttpGlobalConfig cacheOffline(Cache httpCache) {
+        networkInterceptor(new OfflineCacheInterceptor());
+        interceptor(new OfflineCacheInterceptor());
+        this.httpCache = httpCache;
+        return this;
+    }
+
     public CallAdapter.Factory getCallAdapterFactory() {
         return callAdapterFactory;
     }
@@ -266,14 +326,14 @@ public class HttpGlobalConfig {
 
     public int getRetryDelayMillis() {
         if (retryDelayMillis <= 0) {
-            retryDelayMillis = SimpleConfig.DEFAULT_RETRY_DELAY_MILLIS;
+            retryDelayMillis = DefaultConfig.DEFAULT_RETRY_DELAY_MILLIS;
         }
         return retryDelayMillis;
     }
 
     public int getRetryCount() {
         if (retryCount <= 0) {
-            retryCount = SimpleConfig.DEFAULT_RETRY_COUNT;
+            retryCount = DefaultConfig.DEFAULT_RETRY_COUNT;
         }
         return retryCount;
     }
