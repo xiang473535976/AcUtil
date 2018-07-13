@@ -8,7 +8,7 @@ import okhttp3.Response
 /**
  * 默认的Post参数打印
  */
-class ParmInterceptor : Interceptor {
+class ParmLogInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain?): Response {
         val originalRequest = chain!!.request()
         Log.e("xiang", "╔═══════════════════════════════════════════════════════════════════════════════════════════════════")

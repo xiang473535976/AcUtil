@@ -9,7 +9,7 @@ import okhttp3.Response
 /**
  * 默认缓存拦截器
  */
-class CacheInterceptor : Interceptor {
+class DefaultCacheInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain?): Response {
 
         var request = chain?.request()

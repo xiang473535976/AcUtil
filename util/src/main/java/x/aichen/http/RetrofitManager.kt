@@ -1,14 +1,21 @@
 package x.aichen.http
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.support.annotation.NonNull
+import okhttp3.Cache
 import okhttp3.ConnectionPool
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import x.aichen.http.config.HttpGlobalConfig
 import x.aichen.http.config.SimpleConfig
 import java.io.File
 import java.util.concurrent.TimeUnit
 
 
+@SuppressLint("StaticFieldLeak")
 /**
  * author 艾晨
  * Created at 2018/7/12 17:17
@@ -17,20 +24,43 @@ import java.util.concurrent.TimeUnit
  * Version:1.0
  * 说明： retrofit的简单封装
  */
-
-//不能用单例object   否则没法改变BASE_URL
 object RetrofitManager {
     private var baseUrl: String? = null//基本的访问防止
+    private val okHttpBuilder by lazy { OkHttpClient.Builder() }
+    private val retrofitBuilder by lazy { Retrofit.Builder() }
+    private val okHttpClient by lazy { okHttpBuilder.build() }
+    private val httpGlobalConfig by lazy { HttpGlobalConfig.getInstance() }
+    private var context: Context? = null
+
+    @JvmStatic
+    fun getOkHttpBuilder2(): OkHttpClient.Builder {
+        return okHttpBuilder
+    }
+
+    @JvmStatic
+    fun getRetrofitBuilder2(): Retrofit.Builder {
+        return retrofitBuilder
+    }
+
+    @JvmStatic
+    fun getOkHttpClient2(): OkHttpClient {
+        return okHttpClient
+    }
+
+    fun CONFIG(): HttpGlobalConfig {
+        return httpGlobalConfig
+    }
 
     /**
      * *
      * @param base_URL    //基础域名
      */
-    fun init(base_URL: String): Retrofit {
+    fun init(@NonNull base_URL: String, @NonNull con: Context): Retrofit {
         baseUrl = base_URL
+        context = con.applicationContext
         generateGlobalConfig()
-        return SimpleHttp.getRetrofitBuilder()
-                .client(SimpleHttp.getOkHttpClient())
+        return retrofitBuilder
+                .client(okHttpClient)
                 .build()
     }
 
@@ -39,24 +69,23 @@ object RetrofitManager {
      * 生成全局配置
      */
     private fun generateGlobalConfig() {
-        val httpGlobalConfig = SimpleHttp.CONFIG()
-        SimpleHttp.getRetrofitBuilder().baseUrl(baseUrl)
+        retrofitBuilder.baseUrl(baseUrl)
         if (httpGlobalConfig.converterFactory != null) {
-            SimpleHttp.getRetrofitBuilder().addConverterFactory(httpGlobalConfig.converterFactory)
+            retrofitBuilder.addConverterFactory(httpGlobalConfig.converterFactory)
         }
 
         if (httpGlobalConfig.callAdapterFactory == null) {
             httpGlobalConfig.callAdapterFactory(RxJava2CallAdapterFactory.create())
         }
-        SimpleHttp.getRetrofitBuilder().addCallAdapterFactory(httpGlobalConfig.callAdapterFactory)
+        retrofitBuilder.addCallAdapterFactory(httpGlobalConfig.callAdapterFactory)
 
         if (httpGlobalConfig.callFactory != null) {
-            SimpleHttp.getRetrofitBuilder().callFactory(httpGlobalConfig.callFactory)
+            retrofitBuilder.callFactory(httpGlobalConfig.callFactory)
         }
         if (httpGlobalConfig.converterFactory != null) {
-            SimpleHttp.getRetrofitBuilder().addConverterFactory(httpGlobalConfig.converterFactory)
+            retrofitBuilder.addConverterFactory(httpGlobalConfig.converterFactory)
         } else
-            SimpleHttp.getRetrofitBuilder().addConverterFactory(GsonConverterFactory.create())
+            retrofitBuilder.addConverterFactory(GsonConverterFactory.create())
 
 
 
@@ -64,13 +93,15 @@ object RetrofitManager {
             httpGlobalConfig.connectionPool(ConnectionPool(SimpleConfig.DEFAULT_MAX_IDLE_CONNECTIONS,
                     SimpleConfig.DEFAULT_KEEP_ALIVE_DURATION, TimeUnit.SECONDS))
         }
-        SimpleHttp.getOkHttpBuilder().connectionPool(httpGlobalConfig.connectionPool)
-
-
+        okHttpBuilder.connectionPool(httpGlobalConfig.connectionPool)
 
         if (httpGlobalConfig.httpCacheDirectory == null) {
-            httpGlobalConfig.httpCacheDirectory = File(SimpleHttp.getContext().cacheDir, SimpleConfig.CACHE_HTTP_DIR)
+            httpGlobalConfig.httpCacheDirectory = File(context!!.cacheDir, SimpleConfig.CACHE_HTTP_DIR)
         }
+        if (httpGlobalConfig.cachE_MAX_SIZE == 0L) {
+            httpGlobalConfig.cachE_MAX_SIZE = SimpleConfig.CACHE_MAX_SIZE
+        }
+        okHttpBuilder.cache(Cache(httpGlobalConfig.httpCacheDirectory, httpGlobalConfig.cachE_MAX_SIZE))
     }
 }
 

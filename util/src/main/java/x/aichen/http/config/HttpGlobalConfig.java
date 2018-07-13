@@ -9,7 +9,7 @@ import okhttp3.ConnectionPool;
 import okhttp3.Interceptor;
 import retrofit2.CallAdapter;
 import retrofit2.Converter;
-import x.aichen.http.SimpleHttp;
+import x.aichen.http.RetrofitManager;
 
 /**
  * @Description: 请求全局配置
@@ -24,6 +24,16 @@ public class HttpGlobalConfig {
     private File httpCacheDirectory;//Http缓存路径
     private int retryDelayMillis;//请求失败重试间隔时间
     private int retryCount;//请求失败重试次数
+    private Long CACHE_MAX_SIZE;  //缓存的大小
+
+    public Long getCACHE_MAX_SIZE() {
+        return CACHE_MAX_SIZE;
+    }
+
+    public HttpGlobalConfig setCACHE_MAX_SIZE(Long CACHE_MAX_SIZE) {
+        this.CACHE_MAX_SIZE = CACHE_MAX_SIZE;
+        return this;
+    }
 
     public HttpGlobalConfig setConverterFactory(Converter.Factory converterFactory) {
         this.converterFactory = converterFactory;
@@ -133,7 +143,7 @@ public class HttpGlobalConfig {
      * @return
      */
     public HttpGlobalConfig proxy(Proxy proxy) {
-        SimpleHttp.getOkHttpBuilder().proxy(checkNotNull(proxy, "proxy == null"));
+        RetrofitManager.getOkHttpBuilder2().proxy(checkNotNull(proxy, "proxy == null"));
         return this;
     }
 
@@ -176,9 +186,9 @@ public class HttpGlobalConfig {
      */
     public HttpGlobalConfig connectTimeout(int timeout, TimeUnit unit) {
         if (timeout > -1) {
-            SimpleHttp.getOkHttpBuilder().connectTimeout(timeout, unit);
+            RetrofitManager.getOkHttpBuilder2().connectTimeout(timeout, unit);
         } else {
-            SimpleHttp.getOkHttpBuilder().connectTimeout(SimpleConfig.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+            RetrofitManager.getOkHttpBuilder2().connectTimeout(SimpleConfig.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
         }
         return this;
     }
@@ -192,9 +202,9 @@ public class HttpGlobalConfig {
      */
     public HttpGlobalConfig writeTimeout(int timeout, TimeUnit unit) {
         if (timeout > -1) {
-            SimpleHttp.getOkHttpBuilder().writeTimeout(timeout, unit);
+            RetrofitManager.getOkHttpBuilder2().writeTimeout(timeout, unit);
         } else {
-            SimpleHttp.getOkHttpBuilder().writeTimeout(SimpleConfig.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+            RetrofitManager.getOkHttpBuilder2().writeTimeout(SimpleConfig.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
         }
         return this;
     }
@@ -208,9 +218,9 @@ public class HttpGlobalConfig {
      */
     public HttpGlobalConfig readTimeout(int timeout, TimeUnit unit) {
         if (timeout > -1) {
-            SimpleHttp.getOkHttpBuilder().readTimeout(timeout, unit);
+            RetrofitManager.getOkHttpBuilder2().readTimeout(timeout, unit);
         } else {
-            SimpleHttp.getOkHttpBuilder().readTimeout(SimpleConfig.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
+            RetrofitManager.getOkHttpBuilder2().readTimeout(SimpleConfig.DEFAULT_TIMEOUT, TimeUnit.SECONDS);
         }
         return this;
     }
@@ -222,7 +232,7 @@ public class HttpGlobalConfig {
      * @return
      */
     public HttpGlobalConfig interceptor(Interceptor interceptor) {
-        SimpleHttp.getOkHttpBuilder().addInterceptor(checkNotNull(interceptor, "interceptor == null"));
+        RetrofitManager.getOkHttpBuilder2().addInterceptor(checkNotNull(interceptor, "interceptor == null"));
         return this;
     }
 
@@ -233,7 +243,7 @@ public class HttpGlobalConfig {
      * @return
      */
     public HttpGlobalConfig networkInterceptor(Interceptor interceptor) {
-        SimpleHttp.getOkHttpBuilder().addNetworkInterceptor(checkNotNull(interceptor, "interceptor == null"));
+        RetrofitManager.getOkHttpBuilder2().addNetworkInterceptor(checkNotNull(interceptor, "interceptor == null"));
         return this;
     }
 

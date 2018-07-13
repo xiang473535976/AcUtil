@@ -20,5 +20,11 @@
         android:layout_height="wrap_content"
         android:text="网路请求" />
 
+    <Button
+        android:id="@+id/toNetChangeUrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="网路请求(改变基本url)" />
+
 
 </LinearLayout>

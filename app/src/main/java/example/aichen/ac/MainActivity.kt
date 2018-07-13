@@ -29,6 +29,19 @@ class MainActivity : XBaseActivity() {
         toNet.setOnClickListener {
             toHttp()
         }
+        toNetChangeUrl.setOnClickListener {
+            netChangeUrl()
+        }
+    }
+
+    private fun netChangeUrl() {
+        X.apiWithUrl2.ulogin("13000000000", "123456")
+                .io_main_bindLife(this)
+                .subscribe({
+                    LogUtils.e(it)
+                }, {
+
+                })
     }
 
     private fun toHttp() {
