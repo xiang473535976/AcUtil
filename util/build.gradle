@@ -54,9 +54,9 @@ dependencies {
     compile(librarys["rxandroid2"]) {
         exclude module: 'rxjava'
     }
-    compile(librarys["rxlifecycle2"]) {
-        exclude module: 'rxjava'
-    }
+//    compile(librarys["rxlifecycle2"]) {
+//        exclude module: 'rxjava'
+//    }
     compile(librarys["rxlifecycle2_components"]) {
         exclude module: 'rxjava'
         exclude module: 'appcompat-v7'
