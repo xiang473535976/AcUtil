@@ -10,7 +10,7 @@ ext {
             rxkotlin                     : "2.2.0",
             rxandroid2                   : "2.0.2",
             okhttp_interceptor           : "3.10.0",
-            SmartRefreshLayout           : "1.1.0-alpha-11",
+            SmartRefreshLayout           : "1.1.0-alpha-12",
             baseRecyclerViewAdapterHelper: "2.9.40",
             circularAnim                 : "0.4.1",
             autolayout                   : "1.4.5",
