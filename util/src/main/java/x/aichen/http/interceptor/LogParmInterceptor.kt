@@ -7,8 +7,10 @@ import okhttp3.Response
 
 /**
  * 默认的Post参数打印
+ * 如果要查看添加的公共参数  ===>ParmInterceptor
+ *   需要在添加完公共参数之后 再添加这个     这样参数才打印完整
  */
-class ParmLogInterceptor : Interceptor {
+class LogParmInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain?): Response {
         val originalRequest = chain!!.request()
         Log.e("xiang", "╔═══════════════════════════════════════════════════════════════════════════════════════════════════")

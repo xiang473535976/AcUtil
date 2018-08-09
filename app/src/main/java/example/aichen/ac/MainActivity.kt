@@ -35,7 +35,7 @@ class MainActivity : XBaseActivity() {
     }
 
     private fun netChangeUrl() {
-        X.apiWithUrl2.ulogin("13000000000", "123456")
+        X.apiWithUrl2.ulogin2("13000000000", "123456")
                 .io_main_bindLife(this)
                 .subscribe({
                     LogUtils.e(it)

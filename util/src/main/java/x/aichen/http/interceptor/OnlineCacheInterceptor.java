@@ -34,7 +34,7 @@ public class OnlineCacheInterceptor implements Interceptor {
         String cacheControl = originalResponse.header("Cache-Control");
         if (TextUtils.isEmpty(cacheControl) || cacheControl.contains("no-store") || cacheControl.contains("no-cache") || cacheControl
                 .contains("must-revalidate") || cacheControl.contains("max-age") || cacheControl.contains("max-stale")) {
-            LogUtils.d(originalResponse.headers());
+//            LogUtils.d(originalResponse.headers());
             return originalResponse.newBuilder()
                     .header("Cache-Control", "public, " + cacheControlValue)
                     .removeHeader("Pragma")

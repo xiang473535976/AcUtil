@@ -1,9 +1,7 @@
 package aichen.green.ww.http
 
 import io.reactivex.Observable
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
+import retrofit2.http.*
 
 /**
  * Contract->Model->Presenter->Activity->Module->Component
@@ -24,6 +22,13 @@ interface AppService {
     @FormUrlEncoded
     @POST("ulogin")
     fun ulogin(@Field("login_name") login_name: String, @Field("login_pwd") login_pwd: String): Observable<Any>
+
+    /**
+     *用户登录
+     */
+    @GET("ulogin2")
+    fun ulogin2(@Query("login_name") login_name: String, @Query("login_pwd") login_pwd: String): Observable<Any>
+
 
 
 }
