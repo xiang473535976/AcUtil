@@ -2,6 +2,7 @@ package aichen.green.ww.http
 
 import io.reactivex.Observable
 import retrofit2.http.*
+import x.aichen.http.bean.Dto
 
 /**
  * Contract->Model->Presenter->Activity->Module->Component
@@ -21,7 +22,7 @@ interface AppService {
      */
     @FormUrlEncoded
     @POST("ulogin")
-    fun ulogin(@Field("login_name") login_name: String, @Field("login_pwd") login_pwd: String): Observable<Any>
+    fun ulogin(@Field("login_name") login_name: String, @Field("login_pwd") login_pwd: String): Observable<Dto<Any>>
 
     /**
      *用户登录
