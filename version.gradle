@@ -21,7 +21,7 @@ ext {
             agentweb                     : "4.0.2",
             multidex                     : "1.0.1",
             matisse                      : "0.5.2-beta2",
-            Luban                        : "1.1.7",
+            Luban                        : "1.1.8",
             CookieJar                    : "v1.0.1",
             roundedimageview             : "2.3.0",
             anko                         : "0.10.5",
