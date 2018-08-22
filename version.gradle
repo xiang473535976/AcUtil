@@ -3,7 +3,7 @@ ext {
             supportSdk                   : "27.1.1",
             retrofit                     : "2.4.0",
             rxlifecycle                  : "2.2.1",
-            leakcanary                   : "1.5.4",
+            leakcanary                   : "1.6.1",
             utilcode                     : "+", //自动下载最新的库1.17.3
             ucrop                        : "2.2.0",
             rxjava2                      : "2.1.16",
@@ -29,6 +29,7 @@ ext {
             swipebacklayout              : "1.1.9@aar",
             sonic                        : "3.0.0",
             popu                         : "1.1.1",
+            autosize                     : "0.7.0",
     ]
     dependencies = [
             //support
@@ -82,6 +83,7 @@ ext {
             "swipebacklayout"              : "cn.bingoogolapple:bga-swipebacklayout:${version["swipebacklayout"]}",    //swipebacklayout
             "sonic"                        : "com.tencent.sonic:sdk:${version["sonic"]}",    //sonic
             "popu"                         : "com.github.zyyoona7:EasyPopup:${version["popu"]}",    //popu
+            "autosize"                     : 'me.jessyan:autosize:0.7.0', //屏幕适配
 
             //test
             "junit"                        : "junit:junit:4.12",
