@@ -1,6 +1,7 @@
 package aichen.green.ww.http
 
 import x.aichen.http.bean.Dto
+import x.aichen.http.subsciber.BaseSubscriber
 
 
 /**

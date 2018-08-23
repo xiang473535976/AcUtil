@@ -1,15 +1,12 @@
-package aichen.green.ww.http
+package x.aichen.http.subsciber
 
 import x.aichen.extend.toast
 import x.aichen.http.ErrorTips
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ObjectUtils
-import io.reactivex.Observer
-import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
 import x.aichen.extend.showProgressDialog
-import x.aichen.http.bean.Dto
 
 
 /**
