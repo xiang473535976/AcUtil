@@ -79,6 +79,8 @@ inline fun <reified T : Any> Context.intentFor(vararg params: Pair<String, Any?>
 
 inline fun <reified T : Any> Fragment.intentFor(vararg params: Pair<String, Any?>): Intent =
         createIntent(activity, T::class.java, params)
+inline fun <reified T : Any> Activity.intentFor(vararg params: Pair<String, Any?>): Intent =
+        createIntent(this, T::class.java, params)
 
 fun <T> createIntent(ctx: Context, clazz: Class<out T>, params: Array<out Pair<String, Any?>>): Intent {
     val intent = Intent(ctx, clazz)
