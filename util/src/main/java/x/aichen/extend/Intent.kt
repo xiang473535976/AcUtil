@@ -1,11 +1,13 @@
 package x.aichen.extend
 
 import android.app.Activity
+import android.app.Fragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.v4.app.ActivityCompat
+import android.support.v4.app.ActivityCompat.startActivityForResult
 import android.support.v4.app.ActivityOptionsCompat
 import android.view.View
 import com.blankj.utilcode.util.ActivityUtils
@@ -27,12 +29,56 @@ inline fun <reified T : Activity> Context.circulTo(view: View, vararg params: Pa
             }
 }
 
+inline fun <reified T : Activity> Fragment.circulTo(view: View, vararg params: Pair<String, Any?>) {
+    CircularAnim.fullActivity(ActivityUtils.getTopActivity(), view)
+            .go {
+                startActivity(createIntent(activity, T::class.java, params))
+            }
+}
+
+inline fun <reified T : Activity> Activity.circulTo(view: View, vararg params: Pair<String, Any?>) {
+    CircularAnim.fullActivity(ActivityUtils.getTopActivity(), view)
+            .go {
+                startActivity(createIntent(this, T::class.java, params))
+            }
+}
+
 /**
  * 普通跳转
+ * simpleTo
  */
 inline fun <reified T : Activity> Context.simpleTo(vararg params: Pair<String, Any?>) {
     startActivity(createIntent(applicationContext, T::class.java, params))
 }
+
+inline fun <reified T : Activity> Fragment.simpleTo(vararg params: Pair<String, Any?>) {
+    startActivity(createIntent(activity, T::class.java, params))
+}
+
+inline fun <reified T : Activity> Activity.simpleTo(vararg params: Pair<String, Any?>) {
+    startActivity(createIntent(applicationContext, T::class.java, params))
+}
+
+/**
+ * 普通跳转     带请求码
+ * simpleToForResult
+ */
+inline fun <reified T : Activity> Fragment.simpleToForResult(requestCode: Int, vararg params: Pair<String, Any?>) {
+    startActivityForResult(createIntent(activity, T::class.java, params), requestCode)
+}
+
+inline fun <reified T : Activity> Activity.simpleToForResult(requestCode: Int, vararg params: Pair<String, Any?>) {
+    startActivityForResult(createIntent(this, T::class.java, params), requestCode)
+}
+
+/**
+ * 创建intent
+ */
+inline fun <reified T : Any> Context.intentFor(vararg params: Pair<String, Any?>): Intent =
+        createIntent(this, T::class.java, params)
+
+inline fun <reified T : Any> Fragment.intentFor(vararg params: Pair<String, Any?>): Intent =
+        createIntent(activity, T::class.java, params)
 
 fun <T> createIntent(ctx: Context, clazz: Class<out T>, params: Array<out Pair<String, Any?>>): Intent {
     val intent = Intent(ctx, clazz)
@@ -40,6 +86,9 @@ fun <T> createIntent(ctx: Context, clazz: Class<out T>, params: Array<out Pair<S
     return intent
 }
 
+/**
+ * 跳转 带简单的转场动画
+ */
 inline fun <reified T : Activity> Context.simpleToWithAnim(transitView: View, vararg params: Pair<String, Any?>) {
     val optionsCompat = ActivityOptionsCompat.makeScaleUpAnimation(transitView, transitView.x.toInt(), transitView.y.toInt(), 0, 0)
     val intent = createIntent(applicationContext, T::class.java, params)
@@ -92,6 +141,41 @@ private fun fillIntentArguments(intent: Intent, params: Array<out Pair<String, A
 }
 
 /**
+ * Add the [Intent.FLAG_ACTIVITY_CLEAR_TASK] flag to the [Intent].
+ *
+ * @return the same intent with the flag applied.
+ */
+inline fun Intent.clearTask(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) }
+
+/**
+ * Add the [Intent.FLAG_ACTIVITY_CLEAR_TOP] flag to the [Intent].
+ *
+ * @return the same intent with the flag applied.
+ */
+inline fun Intent.clearTop(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP) }
+
+/**
+ * Add the [Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET] flag to the [Intent].
+ *
+ * @return the same intent with the flag applied.
+ */
+inline fun Intent.clearWhenTaskReset(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET) }
+
+/**
+ * Add the [Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS] flag to the [Intent].
+ *
+ * @return the same intent with the flag applied.
+ */
+inline fun Intent.excludeFromRecents(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS) }
+
+/**
+ * Add the [Intent.FLAG_ACTIVITY_MULTIPLE_TASK] flag to the [Intent].
+ *
+ * @return the same intent with the flag applied.
+ */
+inline fun Intent.multipleTask(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK) }
+
+/**
  * Add the [Intent.FLAG_ACTIVITY_NEW_TASK] flag to the [Intent].
  *
  * @return the same intent with the flag applied.
@@ -106,15 +190,15 @@ inline fun Intent.newTask(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_NEW_
 inline fun Intent.noAnimation(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION) }
 
 /**
+ * Add the [Intent.FLAG_ACTIVITY_NO_HISTORY] flag to the [Intent].
+ *
+ * @return the same intent with the flag applied.
+ */
+inline fun Intent.noHistory(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY) }
+
+/**
  * Add the [Intent.FLAG_ACTIVITY_SINGLE_TOP] flag to the [Intent].
  *
  * @return the same intent with the flag applied.
  */
 inline fun Intent.singleTop(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP) }
-
-/**
- * Add the [Intent.FLAG_ACTIVITY_CLEAR_TASK] flag to the [Intent].
- *
- * @return the same intent with the flag applied.
- */
-inline fun Intent.clearTask(): Intent = apply { addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK) }

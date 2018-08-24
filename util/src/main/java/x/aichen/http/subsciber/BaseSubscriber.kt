@@ -10,7 +10,11 @@ import x.aichen.extend.showProgressDialog
 
 
 /**
- * Created by 艾晨 on 2017/1/3.
+ * Author：xjw         Mail：xiangjiwei@bmsoft.com.cn
+ * CreateDate：2018/8/24      CreateVersion：1.0.0
+ * CreateDesc：
+ * UpdateDate：2018/8/24      CreateVersion：
+ * UpdateDesc：
  */
 
 abstract class BaseSubscriber<T>(showDialog: Boolean) : DisposableObserver<T>() {

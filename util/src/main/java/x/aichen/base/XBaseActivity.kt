@@ -7,9 +7,6 @@ import android.view.View
 import com.blankj.utilcode.util.KeyboardUtils
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
-import com.zhy.autolayout.AutoFrameLayout
-import com.zhy.autolayout.AutoLinearLayout
-import com.zhy.autolayout.AutoRelativeLayout
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -32,26 +29,6 @@ abstract class XBaseActivity : RxAppCompatActivity() {
     var useEventBus = true //是否启用eventbus
     var addToSmartRefreshLayout: Boolean = false
     var parent_smartrefreshLayout: SmartRefreshLayout? = null
-    var useAutolayoutToFitScreen = false  //用px     autolayout进行屏幕适配
-    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
-        if (useAutolayoutToFitScreen) {
-            var view: View? = null
-            if (name == LAYOUT_FRAMELAYOUT) {
-                view = AutoFrameLayout(context, attrs)
-            }
-
-            if (name == LAYOUT_LINEARLAYOUT) {
-                view = AutoLinearLayout(context, attrs)
-            }
-
-            if (name == LAYOUT_RELATIVELAYOUT) {
-                view = AutoRelativeLayout(context, attrs)
-            }
-            if (view != null) return view
-        }
-        return super.onCreateView(name, context, attrs)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         initBeforeSetContentView()
         super.onCreate(savedInstanceState)
@@ -89,17 +66,10 @@ abstract class XBaseActivity : RxAppCompatActivity() {
         setContentView(parent_smartrefreshLayout)
     }
 
-    companion object {
-        //生命周期管理
-        private val LAYOUT_LINEARLAYOUT = "LinearLayout"
-        private val LAYOUT_FRAMELAYOUT = "FrameLayout"
-        private val LAYOUT_RELATIVELAYOUT = "RelativeLayout"
-    }
-
     /**
      * eventbus  必须一个接收器     默认随便写了个哈
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onMessageEvent(event: String) {/* Do something */
+    fun onMessageEvent(event: Char) {/* Do something */
     }
 }

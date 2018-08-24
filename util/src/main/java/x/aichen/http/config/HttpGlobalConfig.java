@@ -15,9 +15,11 @@ import x.aichen.http.interceptor.OfflineCacheInterceptor;
 import x.aichen.http.interceptor.OnlineCacheInterceptor;
 
 /**
- * @Description: 请求全局配置
- * @author: <a href="http://www.xiaoyaoyou1212.com">DAWI</a>
- * @date: 2017-04-28 17:17
+ * Author：xjw         Mail：xiangjiwei@bmsoft.com.cn
+ * CreateDate：2018/8/24      CreateVersion：1.0.0
+ * CreateDesc：
+ * UpdateDate：2018/8/24      CreateVersion：
+ * UpdateDesc：
  */
 public class HttpGlobalConfig {
     private CallAdapter.Factory callAdapterFactory;//Call适配器工厂

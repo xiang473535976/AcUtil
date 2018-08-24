@@ -23,11 +23,3 @@ fun Fragment.BackClick(view: View) {
     }
 }
 
-
-fun Fragment.longToast(msg: Any) {
-    context?.longToast(msg)
-}
-
-fun Fragment.toast(msg: Any) {
-    context?.toast(msg)
-}

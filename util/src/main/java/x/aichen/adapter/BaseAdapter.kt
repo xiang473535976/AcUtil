@@ -1,11 +1,7 @@
 package x.aichen.adapter
 
-import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.zhy.autolayout.attr.AutoAttr
-import com.zhy.autolayout.utils.AutoUtils
-import x.aichen.base.XBaseActivity
 import x.aichen.extend.longToast
 import x.aichen.extend.toast
 
@@ -29,16 +25,16 @@ abstract class BaseAdapter<T> : BaseQuickAdapter<T, BaseViewHolder> {
     constructor(layoutResId: Int) : this(layoutResId, arrayListOf())
     constructor(layoutResId: Int, data: ArrayList<T>?) : super(layoutResId, data)
 
-    override fun onCreateDefViewHolder(parent: ViewGroup?, viewType: Int): BaseViewHolder {
-        val viewHolder = super.onCreateDefViewHolder(parent, viewType)
-        if (mContext is XBaseActivity) {
-            (mContext as XBaseActivity).apply {
-                if (useAutolayoutToFitScreen)
-                    AutoUtils.autoSize(viewHolder.itemView, AutoAttr.BASE_HEIGHT) //屏幕适配
-            }
-        }
-        return viewHolder
-    }
+//    override fun onCreateDefViewHolder(parent: ViewGroup?, viewType: Int): BaseViewHolder {
+//        val viewHolder = super.onCreateDefViewHolder(parent, viewType)
+//        if (mContext is XBaseActivity) {
+//            (mContext as XBaseActivity).apply {
+//                if (useAutolayoutToFitScreen)
+//                    AutoUtils.autoSize(viewHolder.itemView, AutoAttr.BASE_HEIGHT) //屏幕适配
+//            }
+//        }
+//        return viewHolder
+//    }
 
     /**
      * 清空所有

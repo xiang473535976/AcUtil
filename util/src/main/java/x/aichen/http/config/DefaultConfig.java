@@ -1,9 +1,11 @@
 package x.aichen.http.config;
 
 /**
- * @Description: 全局常量配置
- * @author: <a href="http://www.xiaoyaoyou1212.com">DAWI</a>
- * @date: 2016-12-19 15:23
+ * Author：xjw         Mail：xiangjiwei@bmsoft.com.cn
+ * CreateDate：2018/8/24      CreateVersion：1.0.0
+ * CreateDesc：
+ * UpdateDate：2018/8/24      CreateVersion：
+ * UpdateDesc：
  */
 public class DefaultConfig {
 
