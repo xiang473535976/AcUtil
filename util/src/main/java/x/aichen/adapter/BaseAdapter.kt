@@ -2,6 +2,8 @@ package x.aichen.adapter
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import x.aichen.extend.LongToast
+import x.aichen.extend.Toast
 import x.aichen.extend.longToast
 import x.aichen.extend.toast
 
@@ -45,10 +47,10 @@ abstract class BaseAdapter<T> : BaseQuickAdapter<T, BaseViewHolder> {
     }
 
     fun longToast(msg: Any) {
-        mContext?.longToast(msg)
+        mContext?.LongToast(msg)
     }
 
     fun toast(msg: Any) {
-        mContext?.toast(msg)
+        mContext?.Toast(msg)
     }
 }

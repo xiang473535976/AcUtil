@@ -5,12 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import com.blankj.utilcode.util.LogUtils
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.singleTop
 import x.aichen.base.XBaseActivity
-import x.aichen.extend.clearTop
-import x.aichen.extend.intentFor
 import x.aichen.extend.io_main_bindLife
-import x.aichen.extend.newTask
 import x.aichen.http.bean.Dto
 import x.aichen.picker.ImagePick
 import x.aichen.picker.PickBuilder

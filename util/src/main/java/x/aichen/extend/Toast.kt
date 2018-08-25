@@ -8,26 +8,26 @@ import com.blankj.utilcode.util.ToastUtils
 /**
  * longToast
  */
-fun Context.longToast(msg: Any?) {
+fun Context.LongToast(msg: Any?) {
     msg?.let { ToastUtils.showLong(msg.toString()) }
 }
 
 fun Fragment.longToast(msg: Any?) {
-    context?.longToast(msg)
+    context?.LongToast(msg)
 }
 
 fun Activity.longToast(msg: Any?) {
-    longToast(msg)
+    LongToast(msg)
 }
 
-fun Context.toast(msg: Any?) {
+fun Context.Toast(msg: Any?) {
     msg?.let { ToastUtils.showLong(msg.toString()) }
 }
 
 fun Fragment.toast(msg: Any?) {
-    context?.toast(msg)
+    context?.Toast(msg)
 }
 
 fun Activity.toast(msg: Any?) {
-    toast(msg)
+    this.Toast(msg)
 }
