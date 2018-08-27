@@ -1,14 +1,13 @@
 package x.aichen.extend
 
 import android.app.Activity
-import android.app.Fragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.v4.app.ActivityCompat
-import android.support.v4.app.ActivityCompat.startActivityForResult
 import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.app.Fragment
 import android.view.View
 import com.blankj.utilcode.util.ActivityUtils
 import top.wefor.circularanim.CircularAnim
@@ -32,7 +31,7 @@ inline fun <reified T : Activity> Context.circulTo(view: View, vararg params: Pa
 inline fun <reified T : Activity> Fragment.circulTo(view: View, vararg params: Pair<String, Any?>) {
     CircularAnim.fullActivity(ActivityUtils.getTopActivity(), view)
             .go {
-                startActivity(createIntent(activity, T::class.java, params))
+                startActivity(createIntent(context!!, T::class.java, params))
             }
 }
 
@@ -52,7 +51,7 @@ inline fun <reified T : Activity> Context.simpleTo(vararg params: Pair<String, A
 }
 
 inline fun <reified T : Activity> Fragment.simpleTo(vararg params: Pair<String, Any?>) {
-    startActivity(createIntent(activity, T::class.java, params))
+    startActivity(createIntent(context!!, T::class.java, params))
 }
 
 inline fun <reified T : Activity> Activity.simpleTo(vararg params: Pair<String, Any?>) {
@@ -64,7 +63,7 @@ inline fun <reified T : Activity> Activity.simpleTo(vararg params: Pair<String, 
  * simpleToForResult
  */
 inline fun <reified T : Activity> Fragment.simpleToForResult(requestCode: Int, vararg params: Pair<String, Any?>) {
-    startActivityForResult(createIntent(activity, T::class.java, params), requestCode)
+    startActivityForResult(createIntent(context!!, T::class.java, params), requestCode)
 }
 
 inline fun <reified T : Activity> Activity.simpleToForResult(requestCode: Int, vararg params: Pair<String, Any?>) {
@@ -78,7 +77,8 @@ inline fun <reified T : Any> Context.intentFor(vararg params: Pair<String, Any?>
         createIntent(this, T::class.java, params)
 
 inline fun <reified T : Any> Fragment.intentFor(vararg params: Pair<String, Any?>): Intent =
-        createIntent(activity, T::class.java, params)
+        createIntent(context!!, T::class.java, params)
+
 inline fun <reified T : Any> Activity.intentFor(vararg params: Pair<String, Any?>): Intent =
         createIntent(this, T::class.java, params)
 
