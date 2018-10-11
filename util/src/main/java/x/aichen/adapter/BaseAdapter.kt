@@ -4,8 +4,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import x.aichen.extend.LongToast
 import x.aichen.extend.Toast
-import x.aichen.extend.longToast
-import x.aichen.extend.toast
 
 /**
  * Contract->Model->Presenter->Activity->Module->Component
@@ -43,7 +41,6 @@ abstract class BaseAdapter<T> : BaseQuickAdapter<T, BaseViewHolder> {
      */
     fun clear() {
         this.mData!!.clear()
-        notifyDataSetChanged()
     }
 
     fun longToast(msg: Any) {

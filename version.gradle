@@ -9,7 +9,7 @@ ext {
             rxandroid2                   : "2.0.2",
             okhttp_interceptor           : "3.10.0",
             SmartRefreshLayout           : "1.1.0-alpha-14",
-            baseRecyclerViewAdapterHelper: "2.9.43-alpha1",
+            baseRecyclerViewAdapterHelper: "2.9.42",
             circularAnim                 : "0.4.5",
             glide                        : "4.8.0",
             statusbarutil                : "1.5.1",
