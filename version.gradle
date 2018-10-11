@@ -2,14 +2,14 @@ ext {
     version = [
             supportSdk                   : "27.1.1",
             retrofit                     : "2.4.0",
-            rxlifecycle                  : "2.2.1",
+            rxlifecycle                  : "2.2.2",
             utilcode                     : "+", //自动下载最新的库1.17.3
             ucrop                        : "2.2.0",
             rxjava2                      : "2.2.1",
             rxandroid2                   : "2.0.2",
             okhttp_interceptor           : "3.10.0",
             SmartRefreshLayout           : "1.1.0-alpha-14",
-            baseRecyclerViewAdapterHelper: "2.9.42",
+            baseRecyclerViewAdapterHelper: "2.9.43-alpha1",
             circularAnim                 : "0.4.5",
             glide                        : "4.8.0",
             statusbarutil                : "1.5.1",
@@ -19,7 +19,7 @@ ext {
             Luban                        : "1.1.8",
             xedittext                    : "2.2.1@aar",
             swipebacklayout              : "1.1.9@aar",
-            autosize                     : "0.9.1",
+            autosize                     : "1.0.0",
     ]
     dependencies = [
             //support
