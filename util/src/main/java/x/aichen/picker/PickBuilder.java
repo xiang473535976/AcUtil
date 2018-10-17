@@ -40,6 +40,19 @@ public class PickBuilder {
     private int mGridExpectedSize;  //
     private float mThumbnailScale = 0.85f;  //缩略图
     private ImageEngine mImageEngine = new GlideEngine();//  图片下载器  默认glide
+    private boolean showSingleMediaType = true;
+
+    public boolean isShowSingleMediaType() {
+        return showSingleMediaType;
+    }
+
+    private boolean isDirectToCamera;   //是否直接去相机拍照 获取
+
+    public PickBuilder setShowSingleMediaType(boolean showSingleMediaType) {
+        this.showSingleMediaType = showSingleMediaType;
+        return this;
+    }
+
     /**
      * 图片剪切
      */
@@ -219,6 +232,16 @@ public class PickBuilder {
 
     public PickBuilder setCompress(boolean compress) {
         this.compress = compress;
+        return this;
+    }
+
+
+    public boolean isDirectToCamera() {
+        return isDirectToCamera;
+    }
+
+    public PickBuilder setDirectToCamera(boolean directToCamera) {
+        isDirectToCamera = directToCamera;
         return this;
     }
 }

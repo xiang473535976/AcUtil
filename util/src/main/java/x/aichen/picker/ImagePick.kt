@@ -1,26 +1,28 @@
 package x.aichen.picker
 
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.support.v4.app.Fragment
+import com.blankj.utilcode.util.ActivityUtils
+import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.LogUtils
-import android.annotation.SuppressLint
-import android.app.Activity.RESULT_CANCELED
 import com.yalantis.ucrop.UCrop
 import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
 import com.zhihu.matisse.SelectionCreator
+import com.zhihu.matisse.internal.utils.MediaStoreCompat
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import top.zibin.luban.Luban
 import x.aichen.extend.createCacheFile
-import x.aichen.extend.toFileRealPath
+import x.aichen.util.UriParse
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 //@SuppressLint("StaticFieldLeak")
@@ -51,7 +53,8 @@ import kotlin.collections.ArrayList
 //</provider>
 
 object ImagePick {
-    private var REQUEST_CODE_SELECT: Int = 110
+    var REQUEST_CODE_SELECT: Int = 110
+    var REQUEST_CODE_CAMERA: Int = 111   //拍照
     private var pickBuilder: PickBuilder? = null
     private lateinit var pickListener: (paths: List<String>) -> Unit
     /**
@@ -60,7 +63,9 @@ object ImagePick {
     private var nowCropUri: Uri? = null  //当前正在剪切的图片的地址    主要是剪切考虑到剪切取消的情况
     private var cropedsList: ArrayList<Uri>? = null  //已经剪切了的图片的地址
     private var mSelectedUri: List<Uri>? = null    //选取的图片的地址
-    private lateinit var matisseSelectionCreator: SelectionCreator  //图片选取的对象
+    private var matisseSelectionCreator: SelectionCreator? = null //图片选取的对象
+    private var mediaStoreCompat: MediaStoreCompat? = null  //相机拍照对象
+
     /**
      * activity  fragment     两个中至少有一个不为空
      * pickBuilder     配置构造器  （里面已经包含了一些常用基本信息）
@@ -71,29 +76,36 @@ object ImagePick {
         pickBuilder = pickbuilder
         pickListener = block
         with(pickbuilder) {
-            if (getmMimeType().contains(MimeType.GIF) || getmMimeType().containsAll(MimeType.ofVideo())) { //这些类型  视频   gif   不支持压缩和裁剪
-                isCompress = false
-                isCrop = false
+            if (isDirectToCamera) { //拍照
+                mediaStoreCompat = MediaStoreCompat(activity).apply {
+                    setCaptureStrategy(getmCaptureStrategy())
+                }
+            } else {
+                if (getmMimeType().contains(MimeType.GIF) || getmMimeType().containsAll(MimeType.ofVideo())) { //这些类型  视频   gif   不支持压缩和裁剪
+                    isCompress = false
+                    isCrop = false
+                }
+                val matisse = if (null != activity)
+                    Matisse.from(activity)
+                else
+                    Matisse.from(fragment)
+                //缓存实体 方便后面再次调用选取图片
+                matisseSelectionCreator = matisse.choose(getmMimeType())
+                        .apply {
+                            countable(ismCountable())
+                            maxSelectable(getmMaxSelectable())
+                            getmFilters()?.forEach { addFilter(it) }
+                            gridExpectedSize(getmGridExpectedSize())
+                            capture(ismCapture())
+                            captureStrategy(getmCaptureStrategy())
+                            restrictOrientation(getmOrientation())
+                            thumbnailScale(getmThumbnailScale())
+                            imageEngine(getmImageEngine())
+                                    .showSingleMediaType(isShowSingleMediaType)
+                        }
+
+
             }
-            val matisse = if (null != activity)
-                Matisse.from(activity)
-            else
-                Matisse.from(fragment)
-            //缓存实体 方便后面再次调用选取图片
-            matisseSelectionCreator = matisse.choose(getmMimeType())
-                    .apply {
-                        countable(ismCountable())
-                        maxSelectable(getmMaxSelectable())
-                        getmFilters()?.forEach { addFilter(it) }
-                        gridExpectedSize(getmGridExpectedSize())
-                        capture(ismCapture())
-                        captureStrategy(getmCaptureStrategy())
-                        restrictOrientation(getmOrientation())
-                        thumbnailScale(getmThumbnailScale())
-                        imageEngine(getmImageEngine())
-                    }
-
-
         }
         return this
 
@@ -103,7 +115,16 @@ object ImagePick {
      * 开始选取图片
      */
     fun start() {
-        matisseSelectionCreator.forResult(REQUEST_CODE_SELECT)
+        matisseSelectionCreator?.forResult(REQUEST_CODE_SELECT)
+
+    }
+
+    /**
+     * 直接调取相机去拍照  获取图片
+     */
+    fun toCamera(context: Context?) {
+        LogUtils.e(mediaStoreCompat)
+        mediaStoreCompat?.dispatchCaptureIntent(context, REQUEST_CODE_CAMERA)
     }
 
     /**
@@ -128,8 +149,16 @@ object ImagePick {
                         startToCropPhoto(activity, fragment)
                     else
                         toCompressByLuBan(context)
-
-//                    handleResult(context!!, arrayListOf<Uri>().apply { add(UCrop.getOutput(data!!)!!) })
+                }
+                REQUEST_CODE_CAMERA -> {//UCrop  图片剪切的响应
+                    mSelectedUri = arrayListOf<Uri>().apply {
+                        add(mediaStoreCompat?.currentPhotoUri!!)
+                    }
+                    if (pickBuilder!!.isCrop) {
+                        cropedsList = arrayListOf()
+                        startToCropPhoto(activity, fragment)
+                    } else
+                        toCompressByLuBan(context)
                 }
             }
             UCrop.RESULT_ERROR -> { //UCrop  图片剪切失败的响应
@@ -157,7 +186,11 @@ object ImagePick {
     @SuppressLint("CheckResult")
     private fun toCompressByLuBan(context: Context?) {
         if (pickBuilder!!.isCrop) mSelectedUri = cropedsList   //如果剪切了   就处理剪切后的集合
-        val paths = arrayListOf<String>().apply { mSelectedUri?.forEach { add(it.toFileRealPath(context!!)!!) } }
+        val paths = arrayListOf<String>().apply {
+            mSelectedUri?.forEach {
+                add(UriParse.getFilePathWithUri(it, ActivityUtils.getTopActivity()))
+            }
+        }
         if (pickBuilder!!.isCompress) {
             Flowable.just(paths)
                     .observeOn(Schedulers.io())
@@ -165,9 +198,9 @@ object ImagePick {
                         //传人图片  压缩   ->  list<File>
                         Luban.with(context).load(it).get()
                     }
-                    .map {
+                    .map { listfile ->
                         //  将 list<File>  ->list<String>
-                        arrayListOf<String>().apply { it.forEach { add(it.toString()) } }
+                        arrayListOf<String>().apply { listfile.forEach { add(it.toString()) } }
                     }
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe {
@@ -189,10 +222,19 @@ object ImagePick {
         }
         //回调
         pickListener(resultPaths)
-        //施放资源
+
+    }
+
+    /**
+     *  施放资源
+     */
+    fun onDestroy() {
         mSelectedUri = null
+        cropedsList?.clear()
         cropedsList = null
+        matisseSelectionCreator = null
         nowCropUri = null
+        mediaStoreCompat = null
     }
 
     /**
@@ -203,7 +245,7 @@ object ImagePick {
         var context = activity ?: fragment!!.context
         val destUri = Uri.Builder()
                 .scheme("file")
-                .appendPath(context?.createCacheFile("crop")!!.toString())
+                .appendPath(context!!.createCacheFile("crop"))
                 .appendPath(String.format(Locale.CHINA, "%s.jpg", System.currentTimeMillis()))
                 .build()
         val bu = UCrop.of(nowCropUri!!, destUri)
