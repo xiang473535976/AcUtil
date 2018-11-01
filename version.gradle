@@ -19,7 +19,7 @@ ext {
             Luban                        : "1.1.8",
             xedittext                    : "2.2.1@aar",
             swipebacklayout              : "1.1.9@aar",
-            autosize                     : "1.0.1",
+            autosize                     : "1.0.5",
     ]
     dependencies = [
             //support
