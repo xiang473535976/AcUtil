@@ -17,7 +17,7 @@ ext {
             eventbus                     : "3.1.1",
             matisse                      : "0.5.2-beta3",
             Luban                        : "1.1.8",
-            xedittext                    : "2.2.1@aar",
+            xedittext                    : "2.2.2@aar",
             swipebacklayout              : "1.1.9@aar",
             autosize                     : "1.0.5",
     ]
