@@ -5,7 +5,7 @@ apply plugin: 'com.novoda.bintray-release'
 def librarys = rootProject.ext.dependencies
 android {
     compileSdkVersion 27
-    buildToolsVersion "27.0.3"
+    buildToolsVersion rootProject.ext.version["buildToolsVersion"]
 
     defaultConfig {
         minSdkVersion 15
@@ -20,100 +20,100 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile librarys["cardview_v7"]
-    compile librarys["design"]
-    compile librarys["appcompat_v7"]
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    api librarys["cardview_v7"]
+    api librarys["design"]
+    api librarys["appcompat_v7"]
 
-    compile librarys["utilcode"]
-    compile(librarys["ucrop"]) {
+    api librarys["utilcode"]
+    api(librarys["ucrop"]) {
         exclude module: 'appcompat-v7'
         exclude module: 'okhttp'
     }
     //retrofit2
-    compile(librarys["retrofit"]) {
+    api(librarys["retrofit"]) {
         exclude module: 'okhttp'
         exclude module: 'okio'
     }
-    compile(librarys["retrofit-adapter-rxjava2"]) {
+    api(librarys["retrofit-adapter-rxjava2"]) {
         exclude module: 'rxjava'
         exclude module: 'okhttp'
         exclude module: 'retrofit'
         exclude module: 'okio'
     }
-    compile(librarys["retrofit-converter-gson"]) {
+    api(librarys["retrofit-converter-gson"]) {
         exclude module: 'okhttp'
         exclude module: 'okio'
         exclude module: 'retrofit'
     }
-    compile(librarys["logging_interceptor"]) {
+    api(librarys["logging_interceptor"]) {
         exclude module: 'okhttp'
     }
     //rxjava
-    compile librarys["rxjava2"]
-    compile(librarys["rxandroid2"]) {
+    api librarys["rxjava2"]
+    api(librarys["rxandroid2"]) {
         exclude module: 'rxjava'
     }
 //    compile(librarys["rxlifecycle2"]) {
 //        exclude module: 'rxjava'
 //    }
-    compile(librarys["rxlifecycle2_components"]) {
+    api(librarys["rxlifecycle2_components"]) {
         exclude module: 'rxjava'
         exclude module: 'appcompat-v7'
     }
-    compile(librarys["rxlifecycle2_kotlin"]) {
+    api(librarys["rxlifecycle2_kotlin"]) {
         exclude module: 'rxjava'
     }
-    compile(librarys["rxlifecycle2_kotlin_lifecycle"]) {
+    api(librarys["rxlifecycle2_kotlin_lifecycle"]) {
         exclude module: 'rxjava'
     }
-    compile(librarys["rxpermissions2"]) {
+    api(librarys["rxpermissions2"]) {
         exclude module: 'rxjava'
         exclude module: 'support-annotations'
     }
-    compile librarys["SmartRefreshLayout"]
+    api librarys["SmartRefreshLayout"]
 //    compile librarys["SmartRefreshHeader"]
-    compile librarys["BaseRecyclerViewAdapterHelper"]
-    compile librarys["circularAnim"]
+    api librarys["BaseRecyclerViewAdapterHelper"]
+    api librarys["circularAnim"]
 //    compile(librarys["autolayout"]) {
 //        exclude module: 'appcompat-v7'
 //    }
-    compile(librarys["glide"]) {
+    api(librarys["glide"]) {
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
     }
-    compile(librarys["glide_okhttp3"]) {
+    api(librarys["glide_okhttp3"]) {
         exclude group: 'glide-parent'
         exclude module: 'glide'
         exclude module: 'okhttp'
         exclude module: 'support-annotations'
     }
-    compile(librarys["okhttp3"]) {
+    api(librarys["okhttp3"]) {
     }
     kapt rootProject.ext.dependencies["glide_compiler"]
-    compile(librarys["statusbarutil"]) {
+    api(librarys["statusbarutil"]) {
         exclude module: 'appcompat-v7'
         exclude module: 'support-design'
     }
-    compile librarys["eventbus"]
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api librarys["eventbus"]
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 //    compile librarys["agentweb"]
-    compile(librarys["matisse"]) {
+    api(librarys["matisse"]) {
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
         exclude module: 'support-annotations'
         exclude module: 'recyclerview-v7'
     }
-    compile librarys["Luban"]
+    api librarys["Luban"]
 
-    compile librarys["xedittext"]
-    compile 'com.github.zzz40500:android-shapeLoadingView:1.0.3.2'
+    api librarys["xedittext"]
+    api 'com.github.zzz40500:android-shapeLoadingView:1.0.3.2'
 //    compile librarys["swipebacklayout"]
 //    compile(librarys["sonic"]) {
 //        exclude module: 'support-annotations'
 //    }
 //    implementation "com.android.support:exifinterface:27.1.1"
-    compile librarys["autosize"]
+    api librarys["autosize"]
 }
 repositories {
     mavenCentral()
@@ -125,7 +125,7 @@ publish {
 //    repoName = 'AcUtil'//远程仓库名字,不指明，默认是上传到maven
     groupId = 'x.aichen'         //compile引用时的第1部分groupId，一般为包名
     artifactId = 'util'     //compile引用时的第2部分项目名，这个需要与我们之前创建的package的Name一样，要不会上传失败
-    publishVersion = '1.0.0_alpha13'    //compile引用时的第3部分版本号
+    publishVersion = '1.0.0_alpha14'    //compile引用时的第3部分版本号
     desc = 'This is a library '  //描述  随便写
     website = siteUrl  //项目的网页，可以写源码的GitHub地址
 }

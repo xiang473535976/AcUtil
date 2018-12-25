@@ -23,6 +23,7 @@ import top.zibin.luban.Luban
 import x.aichen.extend.createCacheFile
 import x.aichen.util.UriParse
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 //@SuppressLint("StaticFieldLeak")
@@ -62,7 +63,7 @@ object ImagePick {
      */
     private var nowCropUri: Uri? = null  //当前正在剪切的图片的地址    主要是剪切考虑到剪切取消的情况
     private var cropedsList: ArrayList<Uri>? = null  //已经剪切了的图片的地址
-    private var mSelectedUri: List<Uri>? = null    //选取的图片的地址
+    private var matisseSelectedList: ArrayList<Uri>? = null    //选取的图片的地址
     private var matisseSelectionCreator: SelectionCreator? = null //图片选取的对象
     private var mediaStoreCompat: MediaStoreCompat? = null  //相机拍照对象
 
@@ -136,7 +137,7 @@ object ImagePick {
         when (resultCode) {
             RESULT_OK -> when (requestCode) {
                 REQUEST_CODE_SELECT -> {  //调用Matisse 选择的响应
-                    mSelectedUri = Matisse.obtainResult(data)
+                    matisseSelectedList = Matisse.obtainResult(data) as ArrayList<Uri>
                     if (pickBuilder!!.isCrop) {
                         cropedsList = arrayListOf()
                         startToCropPhoto(activity, fragment)
@@ -151,7 +152,7 @@ object ImagePick {
                         toCompressByLuBan(context)
                 }
                 REQUEST_CODE_CAMERA -> {//UCrop  图片剪切的响应
-                    mSelectedUri = arrayListOf<Uri>().apply {
+                    matisseSelectedList = arrayListOf<Uri>().apply {
                         add(mediaStoreCompat?.currentPhotoUri!!)
                     }
                     if (pickBuilder!!.isCrop) {
@@ -167,7 +168,14 @@ object ImagePick {
             RESULT_CANCELED -> {
                 when (requestCode) {
                     UCrop.REQUEST_CROP -> {//UCrop  取消剪切的响应
-                        cropedsList?.add(nowCropUri!!)
+                        //未剪切   返回选中图片的方式
+//                        cropedsList?.add(nowCropUri!!)
+//                        if (needContainerCrop())
+//                            startToCropPhoto(activity, fragment)
+//                        else
+//                            toCompressByLuBan(context)
+                        //未剪切   不返回选中图片
+                        matisseSelectedList?.remove(nowCropUri)
                         if (needContainerCrop())
                             startToCropPhoto(activity, fragment)
                         else
@@ -185,9 +193,9 @@ object ImagePick {
      */
     @SuppressLint("CheckResult")
     private fun toCompressByLuBan(context: Context?) {
-        if (pickBuilder!!.isCrop) mSelectedUri = cropedsList   //如果剪切了   就处理剪切后的集合
+        if (pickBuilder!!.isCrop) matisseSelectedList = cropedsList   //如果剪切了   就处理剪切后的集合
         val paths = arrayListOf<String>().apply {
-            mSelectedUri?.forEach {
+            matisseSelectedList?.forEach {
                 add(UriParse.getFilePathWithUri(it, ActivityUtils.getTopActivity()))
             }
         }
@@ -221,7 +229,8 @@ object ImagePick {
             LogUtils.e(it)
         }
         //回调
-        pickListener(resultPaths)
+        if (resultPaths.isNotEmpty())
+            pickListener(resultPaths)
 
     }
 
@@ -229,7 +238,7 @@ object ImagePick {
      *  施放资源
      */
     fun onDestroy() {
-        mSelectedUri = null
+        matisseSelectedList = null
         cropedsList?.clear()
         cropedsList = null
         matisseSelectionCreator = null
@@ -241,7 +250,7 @@ object ImagePick {
      * 图片剪切
      */
     private fun startToCropPhoto(activity: Activity?, fragment: Fragment?) {
-        nowCropUri = mSelectedUri?.get(cropedsList!!.size)
+        nowCropUri = matisseSelectedList?.get(cropedsList!!.size)
         var context = activity ?: fragment!!.context
         val destUri = Uri.Builder()
                 .scheme("file")
@@ -259,6 +268,6 @@ object ImagePick {
     }
 
     private fun needContainerCrop(): Boolean {
-        return null != cropedsList && null != mSelectedUri && cropedsList!!.size != mSelectedUri!!.size
+        return null != cropedsList && null != matisseSelectedList && cropedsList!!.size != matisseSelectedList!!.size
     }
 }

@@ -1,15 +1,16 @@
 ext {
     version = [
+            buildToolsVersion            : "28.0.3",
             supportSdk                   : "27.1.1",
-            retrofit                     : "2.4.0",
+            retrofit                     : "2.5.0",
             rxlifecycle                  : "2.2.1",
             utilcode                     : "+", //自动下载最新的库1.17.3
             ucrop                        : "2.2.0",
             rxjava2                      : "2.2.2",
             rxandroid2                   : "2.1.0",
             okhttp_interceptor           : "3.11.0",
-            SmartRefreshLayout           : "1.1.0-alpha-14",
-            baseRecyclerViewAdapterHelper: "2.9.40",
+            SmartRefreshLayout           : "1.1.0-alpha-18",
+            baseRecyclerViewAdapterHelper: "2.9.44",
             circularAnim                 : "0.4.5",
             glide                        : "4.8.0",
             statusbarutil                : "1.5.1",
@@ -17,9 +18,9 @@ ext {
             eventbus                     : "3.1.1",
             matisse                      : "0.5.2-beta3",
             Luban                        : "1.1.8",
-            xedittext                    : "2.2.2@aar",
-            swipebacklayout              : "1.1.9@aar",
-            autosize                     : "1.0.6",
+            xedittext                    : "2.2.4@aar",
+            swipebacklayout              : "1.2.0@aar",
+            autosize                     : "1.1.1",
     ]
     dependencies = [
             //support
@@ -64,7 +65,7 @@ ext {
             "matisse"                      : "com.zhihu.android:matisse:${version["matisse"]}",    //图片选择
             "Luban"                        : "top.zibin:Luban:${version["Luban"]}",    //图片压缩
             "swipebacklayout"              : "cn.bingoogolapple:bga-swipebacklayout:${version["swipebacklayout"]}",    //swipebacklayout
-            "autosize"                     : 'me.jessyan:autosize:0.7.0', //屏幕适配
+            "autosize"                     : "me.jessyan:autosize:${version["autosize"]}", //屏幕适配
 
     ]
 
