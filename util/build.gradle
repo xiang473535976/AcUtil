@@ -4,12 +4,12 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'com.novoda.bintray-release'
 def librarys = rootProject.ext.dependencies
 android {
-    compileSdkVersion 27
-    buildToolsVersion rootProject.ext.version["buildToolsVersion"]
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+    buildToolsVersion rootProject.ext.android["buildToolsVersion"]
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 27
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
     }
     buildTypes {
         release {
