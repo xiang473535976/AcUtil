@@ -1,6 +1,8 @@
 package x.aichen.base
 
 import android.app.Application
+import android.content.Context
+import android.support.multidex.MultiDex
 import com.blankj.utilcode.util.Utils
 
 /**
@@ -17,6 +19,10 @@ abstract class XApp : Application() {
     override fun onCreate() {
         super.onCreate()
         Utils.init(this) //utilcode 初始化
+    }
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        MultiDex.install(this)
     }
 
 

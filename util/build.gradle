@@ -24,6 +24,7 @@ dependencies {
     api librarys["cardview_v7"]
     api librarys["design"]
     api librarys["appcompat_v7"]
+    api librarys["multidex"]
 
     api librarys["utilcode"]
     api(librarys["ucrop"]) {
