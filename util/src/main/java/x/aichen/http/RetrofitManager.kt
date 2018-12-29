@@ -2,7 +2,7 @@ package x.aichen.http
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.support.annotation.NonNull
+import androidx.annotation.NonNull
 import com.blankj.utilcode.util.LogUtils
 import okhttp3.Cache
 import okhttp3.ConnectionPool

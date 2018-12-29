@@ -2,12 +2,12 @@ package x.aichen.base
 
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
-import com.trello.rxlifecycle2.components.support.RxFragment
+import com.trello.rxlifecycle3.components.support.RxFragment
 
 
 abstract class XFragment : RxFragment() {

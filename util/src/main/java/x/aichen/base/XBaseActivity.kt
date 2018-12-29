@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import android.view.View
 import com.blankj.utilcode.util.KeyboardUtils
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
+import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode

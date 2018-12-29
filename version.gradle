@@ -9,7 +9,7 @@ ext {
             supportSdk                   : "28.0.0",
             multidex                     : "1.0.3",
             retrofit                     : "2.5.0",
-            rxlifecycle                  : "2.2.1",
+            rxlifecycle                  : "3.0.0",
             utilcode                     : "+", //自动下载最新的库1.17.3
             ucrop                        : "2.2.0",
             rxjava2                      : "2.2.2",
@@ -30,11 +30,10 @@ ext {
     ]
     dependencies = [
             //support
-            "appcompat_v7"                 : "com.android.support:appcompat-v7:${version["supportSdk"]}",
-            "design"                       : "com.android.support:design:${version["supportSdk"]}",
-            "cardview_v7"                  : "com.android.support:cardview-v7:${version["supportSdk"]}",
-            "recyclerview_v7"              : "com.android.support:recyclerview-v7:${version["supportSdk"]}",
-            "multidex"                     : "com.android.support:multidex:${version["multidex"]}",
+            "appcompat"                    : 'androidx.appcompat:appcompat:1.0.0',
+            "material_design"               : 'com.google.android.material:material:1.0.0',
+            "cardview_v7"                  : 'androidx.cardview:cardview:1.0.0',
+            "multidex"                     : 'androidx.multidex:multidex:2.0.0',
 
             //network
             "retrofit"                     : "com.squareup.retrofit2:retrofit:${version["retrofit"]}",
@@ -58,8 +57,8 @@ ext {
             //rx2
             "rxandroid2"                   : "io.reactivex.rxjava2:rxandroid:${version["rxandroid2"]}",
             "rxjava2"                      : "io.reactivex.rxjava2:rxjava:${version["rxjava2"]}",
-            "rxlifecycle2_components"      : "com.trello.rxlifecycle2:rxlifecycle-components:${version["rxlifecycle"]}",
-            "rxlifecycle2_kotlin"          : "com.trello.rxlifecycle2:rxlifecycle-kotlin:${version["rxlifecycle"]}",
+            "rxlifecycle3_components"      : "com.trello.rxlifecycle3:rxlifecycle-components:${version["rxlifecycle"]}",
+            "rxlifecycle3_kotlin"          : "com.trello.rxlifecycle3:rxlifecycle-kotlin:${version["rxlifecycle"]}",
 
             "rxpermissions2"               : "com.github.tbruyelle:rxpermissions:${version["rxpermissions2"]}",
             //tools

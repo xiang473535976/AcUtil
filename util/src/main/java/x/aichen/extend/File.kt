@@ -6,7 +6,7 @@ import android.os.Environment
 import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.LogUtils
-import com.trello.rxlifecycle2.kotlin.bindToLifecycle
+import com.trello.rxlifecycle3.kotlin.bindToLifecycle
 import x.aichen.base.XBaseActivity
 import java.io.File
 

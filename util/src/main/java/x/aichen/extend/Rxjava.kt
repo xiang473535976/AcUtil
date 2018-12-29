@@ -2,9 +2,9 @@ package x.aichen.extend
 
 import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.LogUtils
-import com.trello.rxlifecycle2.android.ActivityEvent
-import com.trello.rxlifecycle2.kotlin.bindToLifecycle
-import com.trello.rxlifecycle2.kotlin.bindUntilEvent
+import com.trello.rxlifecycle3.android.ActivityEvent
+import com.trello.rxlifecycle3.kotlin.bindToLifecycle
+import com.trello.rxlifecycle3.kotlin.bindUntilEvent
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -53,7 +53,7 @@ fun <T> Observable<T>.all_io(): Observable<T> = this.subscribeOn(Schedulers.io()
 /**
  * 绑定生命周期
  */
-fun <T, E> Observable<T>.io_main_bindLife(provider: com.trello.rxlifecycle2.LifecycleProvider<E>): Observable<T> = this.subscribeOn(Schedulers.io())
+fun <T, E> Observable<T>.io_main_bindLife(provider: com.trello.rxlifecycle3.LifecycleProvider<E>): Observable<T> = this.subscribeOn(Schedulers.io())
         .unsubscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .bindToLifecycle(provider)

@@ -21,9 +21,8 @@ android {
 
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
-    api librarys["cardview_v7"]
-    api librarys["design"]
-    api librarys["appcompat_v7"]
+    api librarys["material_design"]
+    api librarys["appcompat"]
     api librarys["multidex"]
 
     api librarys["utilcode"]
@@ -55,14 +54,11 @@ dependencies {
     api(librarys["rxandroid2"]) {
         exclude module: 'rxjava'
     }
-//    compile(librarys["rxlifecycle2"]) {
-//        exclude module: 'rxjava'
-//    }
-    api(librarys["rxlifecycle2_components"]) {
+    api(librarys["rxlifecycle3_components"]) {
         exclude module: 'rxjava'
         exclude module: 'appcompat-v7'
     }
-    api(librarys["rxlifecycle2_kotlin"]) {
+    api(librarys["rxlifecycle3_kotlin"]) {
         exclude module: 'rxjava'
     }
 
