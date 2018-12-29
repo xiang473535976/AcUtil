@@ -65,9 +65,7 @@ dependencies {
     api(librarys["rxlifecycle2_kotlin"]) {
         exclude module: 'rxjava'
     }
-    api(librarys["rxlifecycle2_kotlin_lifecycle"]) {
-        exclude module: 'rxjava'
-    }
+
     api(librarys["rxpermissions2"]) {
         exclude module: 'rxjava'
         exclude module: 'support-annotations'
@@ -76,9 +74,6 @@ dependencies {
 //    compile librarys["SmartRefreshHeader"]
     api librarys["BaseRecyclerViewAdapterHelper"]
     api librarys["circularAnim"]
-//    compile(librarys["autolayout"]) {
-//        exclude module: 'appcompat-v7'
-//    }
     api(librarys["glide"]) {
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
@@ -92,13 +87,12 @@ dependencies {
     api(librarys["okhttp3"]) {
     }
     kapt rootProject.ext.dependencies["glide_compiler"]
-    api(librarys["statusbarutil"]) {
+    api(librarys["immersionbar"]) {
         exclude module: 'appcompat-v7'
         exclude module: 'support-design'
     }
     api librarys["eventbus"]
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-//    compile librarys["agentweb"]
     api(librarys["matisse"]) {
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
@@ -109,11 +103,6 @@ dependencies {
 
     api librarys["xedittext"]
     api 'com.github.zzz40500:android-shapeLoadingView:1.0.3.2'
-//    compile librarys["swipebacklayout"]
-//    compile(librarys["sonic"]) {
-//        exclude module: 'support-annotations'
-//    }
-//    implementation "com.android.support:exifinterface:27.1.1"
     api librarys["autosize"]
 }
 repositories {

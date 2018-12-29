@@ -1,10 +1,14 @@
 package x.aichen.extend
 
+import com.blankj.utilcode.util.ActivityUtils
 import com.blankj.utilcode.util.LogUtils
+import com.trello.rxlifecycle2.android.ActivityEvent
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
+import com.trello.rxlifecycle2.kotlin.bindUntilEvent
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import x.aichen.base.XBaseActivity
 import java.util.concurrent.TimeUnit
 
 
@@ -53,6 +57,14 @@ fun <T, E> Observable<T>.io_main_bindLife(provider: com.trello.rxlifecycle2.Life
         .unsubscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .bindToLifecycle(provider)
+
+/**
+ * 指定任意的生命周期   绑定    参考ActivityEvent里面的枚举
+ */
+fun <T> Observable<T>.io_main_bindLifeByEvent(activityEvent: ActivityEvent): Observable<T> = this.subscribeOn(Schedulers.io())
+        .unsubscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .bindUntilEvent(ActivityUtils.getTopActivity() as XBaseActivity, activityEvent)
 
 fun <T> Observable<T>.io_main_bindLife(view: android.view.View): Observable<T> = this.subscribeOn(Schedulers.io())
         .unsubscribeOn(Schedulers.io())
