@@ -1,6 +1,7 @@
 package x.aichen.extend
 
 import android.view.View
+import com.scwang.smartrefresh.layout.SmartRefreshLayout
 
 /**
  * 避免重复点击
@@ -90,4 +91,12 @@ private fun <T : View> T.clickEnable(): Boolean {
     }
     triggerLastTime = currentClickTime
     return flag
+}
+
+/**
+ * SmartRefreshLayout结束下拉刷新  结束上拉刷新
+ */
+fun SmartRefreshLayout.endSmRefresh() {
+    finishLoadMore()
+    finishRefresh()
 }
