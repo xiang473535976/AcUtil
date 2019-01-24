@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
 import com.blankj.utilcode.util.KeyboardUtils
+import com.gyf.barlibrary.ImmersionBar
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
 import org.greenrobot.eventbus.EventBus
@@ -52,7 +53,6 @@ abstract class XBaseActivity : RxAppCompatActivity() {
 
 
     override fun onDestroy() {
-        KeyboardUtils.fixSoftInputLeaks(this)  //修复键盘内存泄漏的     无用
         if (useEventBus) EventBus.getDefault().unregister(this)
         super.onDestroy()
     }

@@ -1,6 +1,10 @@
 package x.aichen.extend
 
 import android.view.View
+import android.widget.TextView
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
+import androidx.core.content.ContextCompat
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 
 /**
@@ -99,4 +103,35 @@ private fun <T : View> T.clickEnable(): Boolean {
 fun SmartRefreshLayout.endSmRefresh() {
     finishLoadMore()
     finishRefresh()
+}
+
+/**
+ * 设置颜色直接使用colors.xml中定义的颜色即可
+ */
+fun TextView.setColor(@ColorRes resId: Int) {
+    this.setTextColor(ContextCompat.getColor(context, resId))
+}
+
+fun TextView.setDrawableLeft(@DrawableRes resId: Int) {
+    var drawable = ContextCompat.getDrawable(context, resId)
+    drawable?.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
+    this.setCompoundDrawables(drawable, null, null, null)
+}
+
+fun TextView.setDrawableRight(@DrawableRes resId: Int) {
+    var drawable = ContextCompat.getDrawable(context, resId)
+    drawable?.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
+    this.setCompoundDrawables(null, null, drawable, null)
+}
+
+fun TextView.setDrawableTop(@DrawableRes resId: Int) {
+    var drawable = ContextCompat.getDrawable(context, resId)
+    drawable?.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
+    this.setCompoundDrawables(null, drawable, null, null)
+}
+
+fun TextView.setDrawableBottom(@DrawableRes resId: Int) {
+    var drawable = ContextCompat.getDrawable(context, resId)
+    drawable?.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
+    this.setCompoundDrawables(null, null, null, drawable)
 }

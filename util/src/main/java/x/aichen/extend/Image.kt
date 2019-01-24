@@ -88,11 +88,11 @@ fun ImageView.GlideImage(url: String?, width: Int = 0, height: Int = 0, errordra
 /**
  * 下载图片
  */
-fun Context.loadBitmap(url: String?, width: Int = 0, height: Int = 0, onLoadListener: (bitmap: Bitmap) -> Unit) {
+fun loadBitmap(url: String?, width: Int = 0, height: Int = 0, onLoadListener: (bitmap: Bitmap) -> Unit) {
     val opt = RequestOptions()
     if (0 != width && 0 != height)
         opt.override(width, height)
-    Glide.with(this).asBitmap().apply(opt).load(url).into(object : SimpleTarget<Bitmap>() {
+    Glide.with(currentAct()).asBitmap().apply(opt).load(url).into(object : SimpleTarget<Bitmap>() {
         override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
             resource?.let { onLoadListener(resource!!) }
         }

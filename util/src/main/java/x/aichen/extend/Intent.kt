@@ -5,10 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
+import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.Fragment
-import android.view.View
 import com.blankj.utilcode.util.ActivityUtils
 import top.wefor.circularanim.CircularAnim
 import java.io.Serializable
@@ -21,66 +21,44 @@ import java.io.Serializable
  * *
  * @param view
  */
-inline fun <reified T : Activity> Context.circulTo(view: View, vararg params: Pair<String, Any?>) {
-    CircularAnim.fullActivity(ActivityUtils.getTopActivity(), view)
-            .go {
-                startActivity(createIntent(applicationContext, T::class.java, params))
-            }
-}
 
-inline fun <reified T : Activity> Fragment.circulTo(view: View, vararg params: Pair<String, Any?>) {
-    CircularAnim.fullActivity(ActivityUtils.getTopActivity(), view)
-            .go {
-                startActivity(createIntent(context!!, T::class.java, params))
-            }
-}
-
-inline fun <reified T : Activity> Activity.circulTo(view: View, vararg params: Pair<String, Any?>) {
-    CircularAnim.fullActivity(ActivityUtils.getTopActivity(), view)
-            .go {
-                startActivity(createIntent(this, T::class.java, params))
-            }
+inline fun <reified T : Activity> circulTo(view: View, vararg params: Pair<String, Any?>) {
+    currentAct().apply {
+        CircularAnim.fullActivity(this, view)
+                .go {
+                    startActivity(createIntent(this, T::class.java, params))
+                }
+    }
 }
 
 /**
  * 普通跳转
  * simpleTo
  */
-inline fun <reified T : Activity> Context.simpleTo(vararg params: Pair<String, Any?>) {
-    startActivity(createIntent(applicationContext, T::class.java, params))
-}
-
-inline fun <reified T : Activity> Fragment.simpleTo(vararg params: Pair<String, Any?>) {
-    startActivity(createIntent(context!!, T::class.java, params))
-}
-
-inline fun <reified T : Activity> Activity.simpleTo(vararg params: Pair<String, Any?>) {
-    startActivity(createIntent(applicationContext, T::class.java, params))
+inline fun <reified T : Activity> simpleTo(vararg params: Pair<String, Any?>) {
+    currentAct().apply {
+        startActivity(createIntent(applicationContext, T::class.java, params))
+    }
 }
 
 /**
  * 普通跳转     带请求码
  * simpleToForResult
  */
-inline fun <reified T : Activity> Fragment.simpleToForResult(requestCode: Int, vararg params: Pair<String, Any?>) {
-    startActivityForResult(createIntent(context!!, T::class.java, params), requestCode)
-}
+inline fun <reified T : Activity> simpleToForResult(requestCode: Int, vararg params: Pair<String, Any?>) {
+    currentAct().apply {
+        startActivityForResult(createIntent(this, T::class.java, params), requestCode)
 
-inline fun <reified T : Activity> Activity.simpleToForResult(requestCode: Int, vararg params: Pair<String, Any?>) {
-    startActivityForResult(createIntent(this, T::class.java, params), requestCode)
+    }
 }
 
 /**
  * 创建intent
  */
-inline fun <reified T : Any> Context.intentFor(vararg params: Pair<String, Any?>): Intent =
-        createIntent(this, T::class.java, params)
 
-inline fun <reified T : Any> Fragment.intentFor(vararg params: Pair<String, Any?>): Intent =
-        createIntent(context!!, T::class.java, params)
 
-inline fun <reified T : Any> Activity.intentFor(vararg params: Pair<String, Any?>): Intent =
-        createIntent(this, T::class.java, params)
+inline fun <reified T : Any> intentFor(vararg params: Pair<String, Any?>): Intent = createIntent(currentAct(), T::class.java, params)
+
 
 fun <T> createIntent(ctx: Context, clazz: Class<out T>, params: Array<out Pair<String, Any?>>): Intent {
     val intent = Intent(ctx, clazz)
@@ -91,15 +69,18 @@ fun <T> createIntent(ctx: Context, clazz: Class<out T>, params: Array<out Pair<S
 /**
  * 跳转 带简单的转场动画
  */
-inline fun <reified T : Activity> Context.simpleToWithAnim(transitView: View, vararg params: Pair<String, Any?>) {
-    val optionsCompat = ActivityOptionsCompat.makeScaleUpAnimation(transitView, transitView.x.toInt(), transitView.y.toInt(), 0, 0)
-    val intent = createIntent(applicationContext, T::class.java, params)
-    try {
-        ActivityCompat.startActivity(ActivityUtils.getTopActivity(), intent, optionsCompat.toBundle())
-    } catch (e: IllegalArgumentException) {
-        e.printStackTrace()
-        ActivityUtils.getTopActivity().startActivity(intent)
+inline fun <reified T : Activity> simpleToWithAnim(transitView: View, vararg params: Pair<String, Any?>) {
+    currentAct().apply {
+        val optionsCompat = ActivityOptionsCompat.makeScaleUpAnimation(transitView, transitView.x.toInt(), transitView.y.toInt(), 0, 0)
+        val intent = createIntent(applicationContext, T::class.java, params)
+        try {
+            ActivityCompat.startActivity(ActivityUtils.getTopActivity(), intent, optionsCompat.toBundle())
+        } catch (e: IllegalArgumentException) {
+            e.printStackTrace()
+            ActivityUtils.getTopActivity().startActivity(intent)
+        }
     }
+
 
 }
 
