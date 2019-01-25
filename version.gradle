@@ -23,7 +23,7 @@ ext {
             immersionbar                 : "2.3.3-beta15",
             rxpermissions2               : "0.10.2@aar",
             eventbus                     : "3.1.1",
-            matisse                      : "0.5.2-beta3",
+            matisse                      : "0.5.2-beta4",
             Luban                        : "1.1.8",
             xedittext                    : "2.2.4@aar",
             swipebacklayout              : "1.2.0@aar",
