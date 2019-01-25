@@ -16,7 +16,7 @@ ext {
             rxandroid2                   : "2.1.0",
             rxkotlin                     : "2.3.0",
             okhttp_interceptor           : "3.12.0",
-            SmartRefreshLayout           : "1.1.0-alpha-18",
+            SmartRefreshLayout           : "1.1.0-andx-2",
             baseRecyclerViewAdapterHelper: "2.9.44",
             circularAnim                 : "0.4.5",
             glide                        : "4.8.0",
