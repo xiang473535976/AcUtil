@@ -23,9 +23,9 @@
             android:name="design_height_in_dp"
             android:value="640" />
         <!--使用最新的OkHttp 3作为网络协议栈   替换默认的-->
-        <meta-data
-            android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
-            android:value="GlideModule" />
+        <!--<meta-data-->
+            <!--android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"-->
+            <!--android:value="GlideModule" />-->
 
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"

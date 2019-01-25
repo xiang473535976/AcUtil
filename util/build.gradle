@@ -51,9 +51,11 @@ dependencies {
     }
     //rxjava
     api librarys["rxjava2"]
+    api librarys["rxkotlin"]
     api(librarys["rxandroid2"]) {
         exclude module: 'rxjava'
     }
+
     api(librarys["rxlifecycle3_components"]) {
         exclude module: 'rxjava'
         exclude module: 'appcompat-v7'
@@ -74,7 +76,7 @@ dependencies {
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
     }
-    api(librarys["glide_okhttp3"]) {
+    api(librarys["glide_okhttp3_integration"]) {
         exclude group: 'glide-parent'
         exclude module: 'glide'
         exclude module: 'okhttp'
@@ -82,7 +84,7 @@ dependencies {
     }
     api(librarys["okhttp3"]) {
     }
-    kapt rootProject.ext.dependencies["glide_compiler"]
+    kapt(librarys["glide_compiler"])
     api(librarys["immersionbar"]) {
         exclude module: 'appcompat-v7'
         exclude module: 'support-design'
@@ -100,6 +102,8 @@ dependencies {
     api librarys["xedittext"]
     api 'com.github.zzz40500:android-shapeLoadingView:1.0.3.2'
     api librarys["autosize"]
+    api librarys["material_dialogs"]
+
 }
 repositories {
     mavenCentral()

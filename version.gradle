@@ -14,6 +14,7 @@ ext {
             ucrop                        : "2.2.0",
             rxjava2                      : "2.2.2",
             rxandroid2                   : "2.1.0",
+            rxkotlin                     : "2.3.0",
             okhttp_interceptor           : "3.12.0",
             SmartRefreshLayout           : "1.1.0-alpha-18",
             baseRecyclerViewAdapterHelper: "2.9.44",
@@ -26,12 +27,14 @@ ext {
             Luban                        : "1.1.8",
             xedittext                    : "2.2.4@aar",
             swipebacklayout              : "1.2.0@aar",
-            autosize                     : "1.1.1",
+            autosize                     : "1.1.2",
+            autosize                     : "1.1.2",
+            material_dialogs             : "2.0.0-rc8",
     ]
     dependencies = [
             //support
             "appcompat"                    : 'androidx.appcompat:appcompat:1.0.0',
-            "material_design"               : 'com.google.android.material:material:1.0.0',
+            "material_design"              : 'com.google.android.material:material:1.0.0',
             "cardview_v7"                  : 'androidx.cardview:cardview:1.0.0',
             "multidex"                     : 'androidx.multidex:multidex:2.0.0',
 
@@ -50,13 +53,14 @@ ext {
             "BaseRecyclerViewAdapterHelper": "com.github.CymChad:BaseRecyclerViewAdapterHelper:${version["baseRecyclerViewAdapterHelper"]}",
             "glide"                        : "com.github.bumptech.glide:glide:${version["glide"]}",
             "glide_compiler"               : "com.github.bumptech.glide:compiler:${version["glide"]}",
-            "glide_okhttp3"                : "com.github.bumptech.glide:okhttp3-integration:${version["glide"]}",
+            "glide_okhttp3_integration"    : "com.github.bumptech.glide:okhttp3-integration:${version["glide"]}",
             "immersionbar"                 : "com.gyf.immersionbar:immersionbar:${version["immersionbar"]}",
             "xedittext"                    : "com.xw.repo:xedittext:${version["xedittext"]}",
 
             //rx2
             "rxandroid2"                   : "io.reactivex.rxjava2:rxandroid:${version["rxandroid2"]}",
             "rxjava2"                      : "io.reactivex.rxjava2:rxjava:${version["rxjava2"]}",
+            "rxkotlin"                     : "io.reactivex.rxjava2:rxkotlin:${version["rxkotlin"]}",
             "rxlifecycle3_components"      : "com.trello.rxlifecycle3:rxlifecycle-components:${version["rxlifecycle"]}",
             "rxlifecycle3_kotlin"          : "com.trello.rxlifecycle3:rxlifecycle-kotlin:${version["rxlifecycle"]}",
 
@@ -69,6 +73,7 @@ ext {
             "Luban"                        : "top.zibin:Luban:${version["Luban"]}",    //图片压缩
             "swipebacklayout"              : "cn.bingoogolapple:bga-swipebacklayout:${version["swipebacklayout"]}",    //swipebacklayout
             "autosize"                     : "me.jessyan:autosize:${version["autosize"]}", //屏幕适配
+            "material_dialogs"             : "com.afollestad.material-dialogs:core:${version["material_dialogs"]}", //屏幕适配
 
     ]
 
