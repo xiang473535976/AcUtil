@@ -6,7 +6,7 @@
     <external-path
         path="."
         name="camera_photos" />
-    <external-path name="beta_external_path" path="Download/"/>
-    <!--/storage/emulated/0/Android/data/${applicationId}/files/apk/-->
-    <external-path name="beta_external_files_path" path="Android/data/"/>
+    <!--<external-path name="beta_external_path" path="Download/"/>-->
+    <!--&lt;!&ndash;/storage/emulated/0/Android/data/${applicationId}/files/apk/&ndash;&gt;-->
+    <!--<external-path name="beta_external_files_path" path="Android/data/"/>-->
 </paths>
