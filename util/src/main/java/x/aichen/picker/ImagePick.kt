@@ -115,7 +115,7 @@ object ImagePick {
     /**
      * 开始选取图片
      */
-    fun start() {
+    fun toMatisse() {
         matisseSelectionCreator?.forResult(REQUEST_CODE_SELECT)
 
     }
@@ -140,16 +140,16 @@ object ImagePick {
                     matisseSelectedList = Matisse.obtainResult(data) as ArrayList<Uri>
                     if (pickBuilder!!.isCrop) {
                         cropedsList = arrayListOf()
-                        startToCropPhoto(activity, fragment)
+                        toCrop(activity, fragment)
                     } else
-                        toCompressByLuBan(context)
+                        toCompress(context)
                 }
                 UCrop.REQUEST_CROP -> {//UCrop  图片剪切的响应
                     cropedsList?.add(UCrop.getOutput(data!!)!!)
                     if (needContainerCrop())
-                        startToCropPhoto(activity, fragment)
+                        toCrop(activity, fragment)
                     else
-                        toCompressByLuBan(context)
+                        toCompress(context)
                 }
                 REQUEST_CODE_CAMERA -> {//UCrop  图片剪切的响应
                     matisseSelectedList = arrayListOf<Uri>().apply {
@@ -157,9 +157,9 @@ object ImagePick {
                     }
                     if (pickBuilder!!.isCrop) {
                         cropedsList = arrayListOf()
-                        startToCropPhoto(activity, fragment)
+                        toCrop(activity, fragment)
                     } else
-                        toCompressByLuBan(context)
+                        toCompress(context)
                 }
             }
             UCrop.RESULT_ERROR -> { //UCrop  图片剪切失败的响应
@@ -177,9 +177,9 @@ object ImagePick {
                         //未剪切   不返回选中图片
                         matisseSelectedList?.remove(nowCropUri)
                         if (needContainerCrop())
-                            startToCropPhoto(activity, fragment)
+                            toCrop(activity, fragment)
                         else
-                            toCompressByLuBan(context)
+                            toCompress(context)
                     }
                 }
 
@@ -192,7 +192,7 @@ object ImagePick {
      * 处理      判断是否压缩
      */
     @SuppressLint("CheckResult")
-    private fun toCompressByLuBan(context: Context?) {
+    private fun toCompress(context: Context?) {
         if (pickBuilder!!.isCrop) matisseSelectedList = cropedsList   //如果剪切了   就处理剪切后的集合
         val paths = arrayListOf<String>().apply {
             matisseSelectedList?.forEach {
@@ -249,7 +249,7 @@ object ImagePick {
     /**
      * 图片剪切
      */
-    private fun startToCropPhoto(activity: Activity?, fragment: Fragment?) {
+    private fun toCrop(activity: Activity?, fragment: Fragment?) {
         nowCropUri = matisseSelectedList?.get(cropedsList!!.size)
         var context = activity ?: fragment!!.context
         val destUri = Uri.Builder()
