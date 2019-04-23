@@ -26,7 +26,7 @@ class MainActivity : XBaseActivity() {
 
     override fun initListener() {
         toCick.setOnClickListener {
-            pick.start()
+            pick.toMatisse()
         }
         toNet.setOnClickListener {
             toHttp()

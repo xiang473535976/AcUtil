@@ -12,13 +12,13 @@ ext {
             rxlifecycle                  : "3.0.0",
             utilcode                     : "+", //自动下载最新的库1.17.3
             ucrop                        : "2.2.0",
-            rxjava2                      : "2.2.2",
-            rxandroid2                   : "2.1.0",
+            rxjava2                      : "2.2.8",
+            rxandroid2                   : "2.1.1",
             rxkotlin                     : "2.3.0",
             okhttp_interceptor           : "3.12.0",
-            SmartRefreshLayout           : "1.1.0-andx-2",
-            baseRecyclerViewAdapterHelper: "2.9.44",
-            circularAnim                 : "0.4.5",
+            SmartRefreshLayout           : "1.1.0-andx-5",
+            baseRecyclerViewAdapterHelper: "2.9.46",
+            circularAnim                 : "0.4.6",
             glide                        : "4.8.0",
             immersionbar                 : "2.3.3-beta15",
             rxpermissions2               : "0.10.2@aar",
@@ -26,10 +26,8 @@ ext {
             matisse                      : "0.5.2-beta4",
             Luban                        : "1.1.8",
             xedittext                    : "2.2.4@aar",
-            swipebacklayout              : "1.2.0@aar",
             autosize                     : "1.1.2",
-            autosize                     : "1.1.2",
-            material_dialogs             : "2.0.0-rc8",
+            material_dialogs             : "2.8.1",
     ]
     dependencies = [
             //support
@@ -71,7 +69,6 @@ ext {
             "eventbus"                     : "org.greenrobot:eventbus:${version["eventbus"]}",
             "matisse"                      : "com.zhihu.android:matisse:${version["matisse"]}",    //图片选择
             "Luban"                        : "top.zibin:Luban:${version["Luban"]}",    //图片压缩
-            "swipebacklayout"              : "cn.bingoogolapple:bga-swipebacklayout:${version["swipebacklayout"]}",    //swipebacklayout
             "autosize"                     : "me.jessyan:autosize:${version["autosize"]}", //屏幕适配
             "material_dialogs"             : "com.afollestad.material-dialogs:core:${version["material_dialogs"]}", //屏幕适配
 
