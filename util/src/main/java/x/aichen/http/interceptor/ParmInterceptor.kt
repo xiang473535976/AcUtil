@@ -1,6 +1,7 @@
 package x.aichen.http.interceptor
 
 import okhttp3.*
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import java.io.IOException
 import java.io.UnsupportedEncodingException
 import java.net.URLDecoder
@@ -23,11 +24,11 @@ class ParmInterceptor(private val parms: Map<String, Any>?) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
         if (parms != null && parms.isNotEmpty()) {
-            if (request.method() == "GET") {
-                mHttpUrl = request.url()
+            if (request.method == "GET") {
+                mHttpUrl = request.url
                 request = addGetParamsSign(request)
-            } else if (request.method() == "POST") {
-                mHttpUrl = HttpUrl.parse(parseUrl(request.url().toString()))
+            } else if (request.method == "POST") {
+                mHttpUrl = parseUrl(request.url.toString()).toHttpUrlOrNull()
                 request = addPostParamsSign(request)
             }
         }
@@ -43,19 +44,22 @@ class ParmInterceptor(private val parms: Map<String, Any>?) : Interceptor {
      */
     private fun addGetParamsSign(request: Request): Request {
         var request = request
-        var httpUrl = request.url()
+        var httpUrl = request.url
         val newBuilder = httpUrl.newBuilder()
 
         //获取原有的参数
-        val nameSet = httpUrl.queryParameterNames()
+        val nameSet = httpUrl.queryParameterNames
         val nameList = arrayListOf<String>()
         nameList.addAll(nameSet)
         val oldParams = TreeMap<String, Any>()
         for (i in 0 until nameList.size) {
-            val value = if (httpUrl.queryParameterValues(nameList.get(i)) != null && httpUrl.queryParameterValues(nameList.get(i)).size > 0) httpUrl.queryParameterValues(nameList.get(i)).get(0) else ""
-            oldParams.put(nameList.get(i), value)
+            val value = if (httpUrl.queryParameterValues(nameList.get(i)) != null && httpUrl.queryParameterValues(
+                    nameList[i]
+                ).isNotEmpty()
+            ) httpUrl.queryParameterValues(nameList[i])[0] else ""
+            value?.let { oldParams.put(nameList[i], it) }
         }
-        val nameKeys = Arrays.asList(nameList).toString()
+        val nameKeys = listOf(nameList).toString()
         //拼装新的参数
         val newParams = updateDynamicParams(oldParams)
 //        Utils.checkNotNull(newParams, "newParams==null")
@@ -80,15 +84,15 @@ class ParmInterceptor(private val parms: Map<String, Any>?) : Interceptor {
      */
     private fun addPostParamsSign(request: Request): Request {
         var newrequest = request
-        when (request.body()) {
+        when (request.body) {
             is FormBody -> {
                 val bodyBuilder = FormBody.Builder()
-                var formBody: FormBody = request.body() as FormBody
+                var formBody: FormBody = request.body as FormBody
 
                 //原有的参数
                 val oldParams = TreeMap<String, Any>()
-                for (i in 0 until formBody.size()) {
-                    oldParams.put(formBody.encodedName(i), formBody.encodedValue(i))
+                for (i in 0 until formBody.size) {
+                    oldParams[formBody.encodedName(i)] = formBody.encodedValue(i)
                 }
 
                 //拼装新的参数
@@ -102,9 +106,9 @@ class ParmInterceptor(private val parms: Map<String, Any>?) : Interceptor {
                 newrequest = request.newBuilder().post(formBody).build()
             }
             is MultipartBody -> {
-                var multipartBody: MultipartBody = request.body() as MultipartBody
+                var multipartBody: MultipartBody = request.body as MultipartBody
                 val bodyBuilder = MultipartBody.Builder().setType(MultipartBody.FORM)
-                val oldParts = multipartBody.parts()
+                val oldParts = multipartBody.parts
 
                 //拼装新的参数
                 val newParts = arrayListOf<MultipartBody.Part>()
@@ -123,7 +127,7 @@ class ParmInterceptor(private val parms: Map<String, Any>?) : Interceptor {
             }
             is RequestBody -> {
                 val params = updateDynamicParams(TreeMap())
-                val url = createUrlFromParams(mHttpUrl!!.url().toString(), params)
+                val url = createUrlFromParams(mHttpUrl!!.toUrl().toString(), params)
                 newrequest = request.newBuilder().url(url).build()
             }
         }
@@ -138,7 +142,7 @@ class ParmInterceptor(private val parms: Map<String, Any>?) : Interceptor {
      */
     private fun updateDynamicParams(dynamicMap: TreeMap<String, Any>): TreeMap<String, Any> {
         for ((k, v) in parms!!) {
-            dynamicMap.put(k, v)
+            dynamicMap[k] = v
         }
         return dynamicMap
     }

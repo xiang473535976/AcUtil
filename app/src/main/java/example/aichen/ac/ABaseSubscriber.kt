@@ -1,4 +1,4 @@
-package aichen.green.ww.http
+package example.aichen.ac
 
 import x.aichen.http.bean.Dto
 import x.aichen.http.subsciber.BaseSubscriber

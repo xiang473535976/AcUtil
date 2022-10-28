@@ -6,9 +6,9 @@ import com.blankj.utilcode.util.LogUtils;
 
 import java.io.IOException;
 
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.functions.Consumer;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okio.Buffer;

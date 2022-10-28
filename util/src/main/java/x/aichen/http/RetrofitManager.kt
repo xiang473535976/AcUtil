@@ -8,10 +8,10 @@ import okhttp3.Cache
 import okhttp3.ConnectionPool
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import x.aichen.http.config.HttpGlobalConfig
 import x.aichen.http.config.DefaultConfig
+import x.aichen.http.config.HttpGlobalConfig
 import java.io.File
 import java.util.concurrent.TimeUnit
 
@@ -79,7 +79,7 @@ object RetrofitManager {
         }
 
         if (httpGlobalConfig.callAdapterFactory == null) {
-            httpGlobalConfig.callAdapterFactory(RxJava2CallAdapterFactory.create())
+            httpGlobalConfig.callAdapterFactory(RxJava3CallAdapterFactory.create())
         }
         retrofitBuilder.addCallAdapterFactory(httpGlobalConfig.callAdapterFactory)
 

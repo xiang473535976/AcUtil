@@ -1,6 +1,5 @@
 package example.aichen.ac
 
-import aichen.green.ww.http.ABaseSubscriber
 import android.content.Intent
 import android.os.Bundle
 import com.blankj.utilcode.util.LogUtils
@@ -14,7 +13,11 @@ import x.aichen.picker.PickBuilder
 
 class MainActivity : XBaseActivity() {
     private val pick by lazy {
-        ImagePick.builder(this, null, PickBuilder().setCrop(true).setCompress(true).setmMaxSelectable(1)) {
+        ImagePick.builder(
+            this,
+            null,
+            PickBuilder().setCrop(true).setCompress(true).setmMaxSelectable(1)
+        ) {
 
         }
     }
@@ -37,24 +40,25 @@ class MainActivity : XBaseActivity() {
     }
 
     private fun netChangeUrl() {
-        X.apiWithUrl2.ulogin2("13000000000", "123456")
-                .io_main_bindLife(this)
-                .subscribe({
-                    LogUtils.e(it)
-                }, {
+        X.apiWithUrl2.queryWeather("成都", "ljuLBw6c5738138880ebd14e466d14bc01a650221caa349")
+            .io_main_bindLife(this)
+            .subscribe(object : ABaseSubscriber<Dto<Any>>(true) {
+                override fun onSuccess(t: Dto<Any>) {
+                    LogUtils.e(t)
+                }
 
-                })
+            })
     }
 
     private fun toHttp() {
         X.api.ulogin("13000000000", "123456")
-                .io_main_bindLife(this)
-                .subscribe(object : ABaseSubscriber<Dto<Any>>(true) {
-                    override fun onSuccess(t: Dto<Any>) {
+            .io_main_bindLife(this)
+            .subscribe(object : ABaseSubscriber<Dto<Any>>(true) {
+                override fun onSuccess(t: Dto<Any>) {
 
-                    }
+                }
 
-                })
+            })
     }
 
     override fun initDate() {

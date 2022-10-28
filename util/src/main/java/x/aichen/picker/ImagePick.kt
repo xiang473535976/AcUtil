@@ -16,9 +16,9 @@ import com.zhihu.matisse.Matisse
 import com.zhihu.matisse.MimeType
 import com.zhihu.matisse.SelectionCreator
 import com.zhihu.matisse.internal.utils.MediaStoreCompat
-import io.reactivex.Flowable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import top.zibin.luban.Luban
 import x.aichen.extend.createCacheFile
 import x.aichen.util.UriParse

@@ -2,13 +2,12 @@ package x.aichen.extend
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.os.Environment
-import com.blankj.utilcode.util.AppUtils
 import com.blankj.utilcode.util.FileUtils
-import com.blankj.utilcode.util.LogUtils
-import com.trello.rxlifecycle3.kotlin.bindToLifecycle
+import com.trello.rxlifecycle4.android.lifecycle.kotlin.bindToLifecycle
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Flowable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import x.aichen.base.XBaseActivity
-import java.io.File
 
 
 /**
@@ -30,8 +29,8 @@ fun Context.createCacheFile(childrenName: String): String {
 fun XBaseActivity.toLuban(paths: List<String>, block: (lis: ArrayList<String>) -> Unit) {
     val pro = showProgressDialog()
     pro.show()
-    io.reactivex.Flowable.just(paths)
-            .observeOn(io.reactivex.schedulers.Schedulers.io())
+    Flowable.just(paths)
+            .observeOn(Schedulers.io())
             .map {
                 //传人图片  压缩   ->  list<File>
                 top.zibin.luban.Luban.with(this).load(it).get()
@@ -41,7 +40,7 @@ fun XBaseActivity.toLuban(paths: List<String>, block: (lis: ArrayList<String>) -
                 kotlin.collections.arrayListOf<String>().apply { listfile.forEach { add(it.toString()) } }
             }
             .bindToLifecycle(this)
-            .observeOn(io.reactivex.android.schedulers.AndroidSchedulers.mainThread())
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 block(it)
                 pro.dismiss()

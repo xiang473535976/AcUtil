@@ -1,7 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-apply plugin: 'com.novoda.bintray-release'
 def librarys = rootProject.ext.dependencies
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
@@ -56,11 +55,14 @@ dependencies {
         exclude module: 'rxjava'
     }
 
-    api(librarys["rxlifecycle3_components"]) {
+    api(librarys["rxlifecycle3_component"]) {
         exclude module: 'rxjava'
         exclude module: 'appcompat-v7'
     }
     api(librarys["rxlifecycle3_kotlin"]) {
+        exclude module: 'rxjava'
+    }
+    api(librarys["rxlifecycle3_core"]) {
         exclude module: 'rxjava'
     }
 
@@ -85,6 +87,7 @@ dependencies {
     api(librarys["okhttp3"]) {
     }
     kapt(librarys["glide_compiler"])
+    kapt(librarys["immersionbar_ktx"])
     api(librarys["immersionbar"]) {
         exclude module: 'appcompat-v7'
         exclude module: 'support-design'
@@ -104,18 +107,11 @@ dependencies {
     api librarys["autosize"]
     api librarys["material_dialogs"]
 
+//    api "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0"
+
 }
 repositories {
     mavenCentral()
 }
-def siteUrl = 'https://github.com/xiang473535976/kotlin_util'   // 项目的主页
 
-publish {
-    userOrg = 'xiang473535976'      //bintray注册的用户名
-//    repoName = 'AcUtil'//远程仓库名字,不指明，默认是上传到maven
-    groupId = 'x.aichen'         //compile引用时的第1部分groupId，一般为包名
-    artifactId = 'util'     //compile引用时的第2部分项目名，这个需要与我们之前创建的package的Name一样，要不会上传失败
-    publishVersion = '1.0.0_alpha15'    //compile引用时的第3部分版本号
-    desc = 'This is a library '  //描述  随便写
-    website = siteUrl  //项目的网页，可以写源码的GitHub地址
-}
+

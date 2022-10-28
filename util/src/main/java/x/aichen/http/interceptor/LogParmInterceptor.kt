@@ -11,14 +11,14 @@ import okhttp3.Response
  *   需要在添加完公共参数之后 再添加这个     这样参数才打印完整
  */
 class LogParmInterceptor : Interceptor {
-    override fun intercept(chain: Interceptor.Chain?): Response {
+    override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain!!.request()
         Log.e("xiang", "╔═══════════════════════════════════════════════════════════════════════════════════════════════════")
-        Log.e("xiang", "║   " + originalRequest.url().toString())
-        when (originalRequest.method()) {"POST" -> {
-            if (originalRequest.body() is FormBody) {
-                val body = originalRequest.body() as FormBody?
-                for (i in 0 until body!!.size()) {
+        Log.e("xiang", "║   " + originalRequest.url.toString())
+        when (originalRequest.method) {"POST" -> {
+            if (originalRequest.body is FormBody) {
+                val body = originalRequest.body as FormBody?
+                for (i in 0 until body!!.size) {
                     Log.e("参数", " ║    " + body.encodedName(i) + "    ====   " + body.encodedValue(i))
                 }
             }
@@ -30,4 +30,5 @@ class LogParmInterceptor : Interceptor {
         Log.e("xiang", "╚═══════════════════════════════════════════════════════════════════════════════════════════════════")
         return chain?.proceed(originalRequest.newBuilder().build())!!
     }
+
 }

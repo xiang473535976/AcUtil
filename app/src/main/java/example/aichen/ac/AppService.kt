@@ -1,6 +1,6 @@
-package aichen.green.ww.http
+package example.aichen.ac
 
-import io.reactivex.Observable
+import io.reactivex.rxjava3.core.Observable
 import retrofit2.http.*
 import x.aichen.http.bean.Dto
 
@@ -29,6 +29,11 @@ interface AppService {
      */
     @GET("ulogin2")
     fun ulogin2(@Query("login_name") login_name: String, @Query("login_pwd") login_pwd: String): Observable<Any>
+ /**
+     *查询天气
+     */
+    @GET("weather/get15DaysWeatherByArea")
+    fun queryWeather(@Query("area") login_name: String, @Query("apiKey") login_pwd: String): Observable<Dto<Any>>
 
 
 

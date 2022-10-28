@@ -15,7 +15,7 @@ class HeadersInterceptor(private val headers: Map<String, String>?) : Intercepto
         if (headers != null && headers.isNotEmpty()) {
             val keys = headers.keys
             for (headerKey in keys) {
-                builder.addHeader(headerKey, headers[headerKey]).build()
+                headers[headerKey]?.let { builder.addHeader(headerKey, it).build() }
             }
         }
         return chain.proceed(builder.build())

@@ -1,13 +1,8 @@
 package x.aichen.base
 
-import android.content.Context
 import android.os.Bundle
-import android.util.AttributeSet
-import android.view.View
-import com.blankj.utilcode.util.KeyboardUtils
-import com.gyf.barlibrary.ImmersionBar
-import com.scwang.smartrefresh.layout.SmartRefreshLayout
-import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
+import com.trello.rxlifecycle4.components.support.RxAppCompatActivity
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode

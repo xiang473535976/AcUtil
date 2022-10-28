@@ -1,7 +1,7 @@
 package x.aichen.adapter
 
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import x.aichen.extend.LongToast
 import x.aichen.extend.Toast
 
@@ -17,9 +17,8 @@ import x.aichen.extend.Toast
 
 abstract class BaseAdapter<T> : BaseQuickAdapter<T, BaseViewHolder> {
     init {
-        openLoadAnimation(BaseQuickAdapter.ALPHAIN)  //开启列表动画
-//        openLoadAnimation(BaseQuickAdapter.SCALEIN)  //开启列表动画
-        isFirstOnly(true)
+        animationEnable = true
+        setAnimationWithDefault(AnimationType.AlphaIn)
     }
 
     constructor(layoutResId: Int) : this(layoutResId, arrayListOf())
@@ -40,14 +39,14 @@ abstract class BaseAdapter<T> : BaseQuickAdapter<T, BaseViewHolder> {
      * 清空所有
      */
     fun clear() {
-        this.mData!!.clear()
+        this.data!!.clear()
     }
 
     fun longToast(msg: Any) {
-        mContext?.LongToast(msg)
+        context?.LongToast(msg)
     }
 
     fun toast(msg: Any) {
-        mContext?.Toast(msg)
+        context?.Toast(msg)
     }
 }
