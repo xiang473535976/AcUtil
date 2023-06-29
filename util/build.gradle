@@ -1,7 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-def librarys = rootProject.ext.dependencies
 android {
     compileSdkVersion rootProject.ext.android["compileSdkVersion"]
     buildToolsVersion rootProject.ext.android["buildToolsVersion"]
@@ -9,6 +8,7 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.android["minSdkVersion"]
         targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+
     }
     buildTypes {
         release {
@@ -20,95 +20,40 @@ android {
 
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
-    api librarys["material_design"]
-    api librarys["appcompat"]
-    api librarys["multidex"]
+    api 'androidx.appcompat:appcompat:1.2.0'
+    api 'com.blankj:utilcodex:1.31.1'
+    api 'com.github.yalantis:ucrop:2.2.6'
 
-    api librarys["utilcode"]
-    api(librarys["ucrop"]) {
-        exclude module: 'appcompat-v7'
-        exclude module: 'okhttp'
-    }
-    //retrofit2
-    api(librarys["retrofit"]) {
-        exclude module: 'okhttp'
-        exclude module: 'okio'
-    }
-    api(librarys["retrofit-adapter-rxjava2"]) {
-        exclude module: 'rxjava'
-        exclude module: 'okhttp'
-        exclude module: 'retrofit'
-        exclude module: 'okio'
-    }
-    api(librarys["retrofit-converter-gson"]) {
-        exclude module: 'okhttp'
-        exclude module: 'okio'
-        exclude module: 'retrofit'
-    }
-    api(librarys["logging_interceptor"]) {
-        exclude module: 'okhttp'
-    }
-    //rxjava
-    api librarys["rxjava2"]
-    api librarys["rxkotlin"]
-    api(librarys["rxandroid2"]) {
-        exclude module: 'rxjava'
-    }
+    api 'com.squareup.retrofit2:retrofit:2.9.0'
+    api 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+    api 'com.squareup.retrofit2:converter-gson:2.9.0'
+    api 'com.squareup.okhttp3:logging-interceptor:4.9.3'
+    api 'io.reactivex.rxjava3:rxandroid:3.0.2'
 
-    api(librarys["rxlifecycle3_component"]) {
-        exclude module: 'rxjava'
-        exclude module: 'appcompat-v7'
-    }
-    api(librarys["rxlifecycle3_kotlin"]) {
-        exclude module: 'rxjava'
-    }
-    api(librarys["rxlifecycle3_core"]) {
-        exclude module: 'rxjava'
-    }
+    api 'com.trello.rxlifecycle4:rxlifecycle:4.0.2'
+    api 'com.trello.rxlifecycle4:rxlifecycle-components:4.0.2'
+    api 'com.trello.rxlifecycle4:rxlifecycle-android-lifecycle-kotlin:4.0.2'
+    api 'com.github.tbruyelle:rxpermissions:0.12'
+    api 'io.github.scwang90:refresh-layout-kernel:2.0.6'      //核心必须依赖
+    api 'io.github.scwang90:refresh-header-classics:2.0.6'    //经典刷新头
 
-    api(librarys["rxpermissions2"]) {
-        exclude module: 'rxjava'
-        exclude module: 'support-annotations'
-    }
-    api librarys["SmartRefreshLayout"]
-//    compile librarys["SmartRefreshHeader"]
-    api librarys["BaseRecyclerViewAdapterHelper"]
-    api librarys["circularAnim"]
-    api(librarys["glide"]) {
-        exclude module: 'support-v4'
-        exclude module: 'appcompat-v7'
-    }
-    api(librarys["glide_okhttp3_integration"]) {
-        exclude group: 'glide-parent'
-        exclude module: 'glide'
-        exclude module: 'okhttp'
-        exclude module: 'support-annotations'
-    }
-    api(librarys["okhttp3"]) {
-    }
-    kapt(librarys["glide_compiler"])
-    kapt(librarys["immersionbar_ktx"])
-    api(librarys["immersionbar"]) {
-        exclude module: 'appcompat-v7'
-        exclude module: 'support-design'
-    }
-    api librarys["eventbus"]
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    api(librarys["matisse"]) {
-        exclude module: 'support-v4'
-        exclude module: 'appcompat-v7'
-        exclude module: 'support-annotations'
-        exclude module: 'recyclerview-v7'
-    }
-    api librarys["Luban"]
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.11'
+    api 'com.github.XunMengWinter:CircularAnim:0.4.6'
+    api 'com.github.bumptech.glide:glide:4.15.1'
+    api 'com.github.bumptech.glide:okhttp3-integration:4.15.1'
+    api "com.squareup.okhttp3:okhttp:4.11.0"
 
-    api librarys["xedittext"]
+
+    api 'com.geyifeng.immersionbar:immersionbar:3.2.2'
+    api "org.greenrobot:eventbus:3.3.1"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    api 'com.zhihu.android:matisse:0.5.3-beta3'
+    api 'top.zibin:Luban:1.1.8'
+    api 'com.xw.repo:xedittext-androidx:2.3.0'
     api 'com.github.zzz40500:android-shapeLoadingView:1.0.3.2'
-    api librarys["autosize"]
-    api librarys["material_dialogs"]
-
-//    api "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0"
-
+    api 'me.jessyan:autosize:1.2.1'
+    api 'com.afollestad.material-dialogs:core:3.3.0'
+//    api 'com.android.support:multidex:1.0.3'
 }
 repositories {
     mavenCentral()
